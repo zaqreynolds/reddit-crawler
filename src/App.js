@@ -1,5 +1,6 @@
 import React from "react";
 import { Results } from "./components/Results";
+import { Search } from "./components/Search";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
       >
         Reddit Crawler
       </h1>
-      <Results />
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <Search />
+        <Results />
+      </div>
     </div>
   );
 }
