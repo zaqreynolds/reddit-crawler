@@ -1,6 +1,8 @@
 import React from "react";
 import { Results } from "./components/Results";
 import { Search } from "./components/Search";
+// import { Categories } from "./components/Categories";
+import { BottomNav } from "./components/BottomNav";
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
       </h1>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Search />
+        {/* <Categories /> */}
         <Results />
       </div>
+      <BottomNav />
     </div>
   );
 }

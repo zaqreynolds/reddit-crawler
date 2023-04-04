@@ -19,7 +19,12 @@ export const Search = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ marginTop: "48px", display: "inline-flex", color: "white" }}
+      style={{
+        marginTop: "48px",
+        display: "inline-flex",
+        color: "white",
+        height: "fit-content",
+      }}
     >
       <label htmlFor="searchInput">
         Search:

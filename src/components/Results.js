@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 export const Results = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => {
-    if (state.content.data && state.content.data.data) {
+    if (state.content.data?.data) {
       return state.content.data.data.children;
     }
     return [];
@@ -28,7 +28,9 @@ export const Results = () => {
 
   const mediaType = (post) => {
     if (post.data.post_hint === "image") {
-      return <img src={post.data.url} style={{ paddingTop: "10px" }}></img>;
+      return (
+        <img src={post.data.url} style={{ paddingTop: "10px" }} alt=""></img>
+      );
     } else if (post.data.post_hint === "hosted:video") {
       return (
         <ReactPlayer
@@ -44,14 +46,15 @@ export const Results = () => {
     }
   };
 
-  console.log("LOOK HERE", posts);
+  // console.log("LOOK HERE", posts);
   return (
     <div
       style={{
-        display: "flex",
+        display: "inline-flex",
         flexDirection: "column",
         justifyContent: "center",
         width: "100%",
+        clear: "right",
       }}
     >
       <ul style={{ paddingTop: "38px" }}>
