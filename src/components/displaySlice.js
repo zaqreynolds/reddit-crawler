@@ -5,7 +5,6 @@ export const fetchContent = createAsyncThunk(
   async () => {
     const response = await fetch("https://api.reddit.com/hot.json");
     const data = await response.json();
-    console.log("Raw Dog", data);
     return data;
   }
 );
@@ -34,22 +33,27 @@ export const prevList = createAsyncThunk(
 
 export const nextList = createAsyncThunk(
   "content/nextContent",
-  async (after) => {
+  async (after, thunkAPI) => {
+    const state = thunkAPI.getState();
     const response = await fetch(
-      // TODO: count needs to be stored in state and incremented
-      `https://api.reddit.com/hot.json?after=${after}&count=25`
+      `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`
     );
     const data = await response.json();
     return data;
   }
 );
 
-// https://www.reddit.com/search.json?q=${searchString}
-
 const displaySlice = createSlice({
   name: "content",
-  initialState: { data: [], status: "idle", error: null },
-  reducers: {},
+  initialState: { data: [], status: "idle", error: null, pageCount: "0" },
+  reducers: {
+    incrementPageCount: (state) => {
+      state.pageCount += 1;
+    },
+    decrementPageCount: (state) => {
+      state.pageCount -= 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchContent.pending, (state) => {
@@ -100,3 +104,5 @@ const displaySlice = createSlice({
 });
 
 export default displaySlice.reducer;
+
+export const { incrementPageCount, decrementPageCount } = displaySlice.actions;

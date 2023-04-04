@@ -1,24 +1,26 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nextList, prevList } from "./displaySlice";
+import { incrementPageCount, decrementPageCount } from "./displaySlice";
 
 export const BottomNav = () => {
   const dispatch = useDispatch();
 
   const beforeState = useSelector(({ content }) => {
-    console.log("BEFORE BEFORE", content.data?.data);
     return content.data?.data?.before;
   });
   const afterState = useSelector(({ content }) => content.data?.data?.after);
 
   const clickBack = () => {
     dispatch(prevList(beforeState));
+    dispatch(decrementPageCount());
   };
 
   const clickNext = () => {
     dispatch(nextList(afterState));
+    dispatch(incrementPageCount());
   };
-  console.log("BEFORE WHAT", beforeState);
+
   return (
     <div
       id="nextBack"
