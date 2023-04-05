@@ -1,7 +1,7 @@
 import React from "react";
 import { Results } from "./components/Results";
 import { Search } from "./components/Search";
-// import { Categories } from "./components/Categories";
+import { Filter } from "./components/Filter";
 import { BottomNav } from "./components/BottomNav";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
       </h1>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Search />
-        {/* <Categories /> */}
+        <Filter />
         <Results />
       </div>
       <BottomNav />

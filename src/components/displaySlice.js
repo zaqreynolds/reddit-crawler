@@ -11,9 +11,11 @@ export const fetchContent = createAsyncThunk(
 
 export const searchReddit = createAsyncThunk(
   "content/searchContent",
-  async (searchString) => {
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    console.log("SEARCH THIS", state.searchString);
     const response = await fetch(
-      `https://api.reddit.com/search.json?q=${searchString}`
+      `https://api.reddit.com/search.json?q=${state.content.searchString}`
     );
     const data = await response.json();
     return data;
@@ -22,10 +24,18 @@ export const searchReddit = createAsyncThunk(
 
 export const prevList = createAsyncThunk(
   "content/prevContent",
-  async (before) => {
-    const response = await fetch(
-      `https://api.reddit.com/hot.json?before=${before}`
-    );
+  async (before, thunkAPI) => {
+    const state = thunkAPI.getState();
+    let response;
+    if (state.content.searchString) {
+      response = await fetch(
+        `https://api.reddit.com/search.json?q=${state.content.searchString}&before=${before}&count=${state.content.pageCount}`
+      );
+    } else {
+      response = await fetch(
+        `https://api.reddit.com/hot.json?before=${before}`
+      );
+    }
     const data = await response.json();
     return data;
   }
@@ -35,9 +45,17 @@ export const nextList = createAsyncThunk(
   "content/nextContent",
   async (after, thunkAPI) => {
     const state = thunkAPI.getState();
-    const response = await fetch(
-      `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`
-    );
+    let response;
+    if (state.content.searchString) {
+      response = await fetch(
+        `https://api.reddit.com/search.json?q=${state.content.searchString}&after=${after}&count=${state.content.pageCount}`
+      );
+    } else {
+      response = await fetch(
+        `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`
+      );
+    }
+
     const data = await response.json();
     return data;
   }
@@ -45,13 +63,26 @@ export const nextList = createAsyncThunk(
 
 const displaySlice = createSlice({
   name: "content",
-  initialState: { data: [], status: "idle", error: null, pageCount: "0" },
+  initialState: {
+    data: [],
+    status: "idle",
+    error: null,
+    pageCount: "1",
+    filter: "Hot",
+    searchString: "",
+  },
   reducers: {
     incrementPageCount: (state) => {
       state.pageCount += 1;
     },
     decrementPageCount: (state) => {
       state.pageCount -= 1;
+    },
+    selectFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+    setSearchString: (state, action) => {
+      state.searchString = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -105,4 +136,9 @@ const displaySlice = createSlice({
 
 export default displaySlice.reducer;
 
-export const { incrementPageCount, decrementPageCount } = displaySlice.actions;
+export const {
+  incrementPageCount,
+  decrementPageCount,
+  selectFilter,
+  setSearchString,
+} = displaySlice.actions;

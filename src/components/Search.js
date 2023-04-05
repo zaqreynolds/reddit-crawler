@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { searchReddit } from "./displaySlice";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchReddit, setSearchString } from "./displaySlice";
 
 export const Search = () => {
   const dispatch = useDispatch();
-  const [searchData, setSearchData] = useState("");
+  const searchString = useSelector((state) => state.content.searchString);
 
   const handleInputChange = (e) => {
-    setSearchData(e.target.value);
+    dispatch(setSearchString(e.target.value));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(searchReddit(searchData));
-    setSearchData("");
+    dispatch(searchReddit());
   };
 
   return (
@@ -32,7 +31,7 @@ export const Search = () => {
           type="text"
           id="searchInput"
           name="searchInput"
-          value={searchData}
+          value={searchString}
           onChange={handleInputChange}
         ></input>
       </label>
