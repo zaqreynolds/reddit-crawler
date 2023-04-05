@@ -2,8 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchContent = createAsyncThunk(
   "content/fetchContent",
-  async () => {
-    const response = await fetch("https://api.reddit.com/hot.json");
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    console.log("FILTER", state.content.filter);
+    const response = await fetch(
+      `https://api.reddit.com/${state.content.filter}.json`
+    );
     const data = await response.json();
     return data;
   }
@@ -13,9 +17,9 @@ export const searchReddit = createAsyncThunk(
   "content/searchContent",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    console.log("SEARCH THIS", state.searchString);
+    console.log("FILTERSEARCH", state.content.filter);
     const response = await fetch(
-      `https://api.reddit.com/search.json?q=${state.content.searchString}`
+      `https://api.reddit.com/search.json?q=${state.content.searchString}&sort=${state.content.filter}`
     );
     const data = await response.json();
     return data;
@@ -68,7 +72,7 @@ const displaySlice = createSlice({
     status: "idle",
     error: null,
     pageCount: "1",
-    filter: "Hot",
+    filter: "hot",
     searchString: "",
   },
   reducers: {

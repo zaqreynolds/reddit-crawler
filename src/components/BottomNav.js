@@ -11,6 +11,14 @@ export const BottomNav = () => {
   });
   const afterState = useSelector(({ content }) => content.data?.data?.after);
 
+  const hideBack = () => {
+    if (beforeState) {
+      return "block";
+    } else {
+      return "none";
+    }
+  };
+
   const clickBack = () => {
     dispatch(prevList(beforeState));
     dispatch(decrementPageCount());
@@ -32,20 +40,21 @@ export const BottomNav = () => {
         bottom: "0",
         display: "flex",
         justifyContent: "center",
+        backgroundColor: "#182a35",
+        paddingTop: "5px",
       }}
     >
       <button
         style={{
-          marginRight: "35rem",
+          marginRight: "5rem",
+          display: hideBack(),
         }}
-        disabled={!beforeState}
+        // disabled={!beforeState}
         onClick={clickBack}
       >
         Back
       </button>
-      <button style={{ marginLeft: "5rem" }} onClick={clickNext}>
-        Next
-      </button>
+      <button onClick={clickNext}>Next</button>
     </div>
   );
 };
