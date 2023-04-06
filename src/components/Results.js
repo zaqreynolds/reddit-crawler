@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "./displaySlice";
 import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,6 @@ export const Results = () => {
     }
   };
 
-  // console.log("LOOK HERE", posts);
   return (
     <div
       style={{
@@ -82,13 +82,15 @@ export const Results = () => {
               {mediaType(post)}
               <br></br>
               <div>
-                Comments:{post.data.num_comments}
+                <Link to={`/post/${post.data.id}`}>
+                  Comments:{post.data.num_comments}
+                </Link>
                 <br></br>
-                ups:{post.data.ups}
+                {/* ups:{post.data.ups}
                 <br></br>
                 upvote ratio: {post.data.upvote_ratio}
                 <br></br>
-                downs: {post.data.downs}
+                downs: {post.data.downs} */}
               </div>
             </div>
           </li>

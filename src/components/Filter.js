@@ -1,6 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
+import {
+  fetchContent,
+  searchReddit,
+  selectFilter,
+  resetPageCount,
+} from "./displaySlice";
 
 export const Filter = () => {
   const dispatch = useDispatch();

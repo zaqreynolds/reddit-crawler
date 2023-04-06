@@ -4,7 +4,7 @@ export const fetchContent = createAsyncThunk(
   "content/fetchContent",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    console.log("FILTER", state.content.filter);
+    thunkAPI.dispatch(resetPageCount());
     const response = await fetch(
       `https://api.reddit.com/${state.content.filter}.json`
     );
@@ -17,7 +17,7 @@ export const searchReddit = createAsyncThunk(
   "content/searchContent",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    console.log("FILTERSEARCH", state.content.filter);
+    thunkAPI.dispatch(resetPageCount());
     const response = await fetch(
       `https://api.reddit.com/search.json?q=${state.content.searchString}&sort=${state.content.filter}`
     );
@@ -37,7 +37,7 @@ export const prevList = createAsyncThunk(
       );
     } else {
       response = await fetch(
-        `https://api.reddit.com/hot.json?before=${before}`
+        `https://api.reddit.com/hot.json?before=${before}&count=${state.content.pageCount}`
       );
     }
     const data = await response.json();
@@ -59,7 +59,6 @@ export const nextList = createAsyncThunk(
         `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`
       );
     }
-
     const data = await response.json();
     return data;
   }
@@ -71,7 +70,7 @@ const displaySlice = createSlice({
     data: [],
     status: "idle",
     error: null,
-    pageCount: "1",
+    pageCount: 0,
     filter: "hot",
     searchString: "",
   },
@@ -81,6 +80,9 @@ const displaySlice = createSlice({
     },
     decrementPageCount: (state) => {
       state.pageCount -= 1;
+    },
+    resetPageCount: (state) => {
+      state.pageCount = 0;
     },
     selectFilter: (state, action) => {
       state.filter = action.payload;
@@ -143,6 +145,7 @@ export default displaySlice.reducer;
 export const {
   incrementPageCount,
   decrementPageCount,
+  resetPageCount,
   selectFilter,
   setSearchString,
 } = displaySlice.actions;

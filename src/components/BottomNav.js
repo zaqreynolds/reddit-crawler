@@ -10,9 +10,16 @@ export const BottomNav = () => {
     return content.data?.data?.before;
   });
   const afterState = useSelector(({ content }) => content.data?.data?.after);
-
+  const status = useSelector((state) => state.content.status);
   const hideBack = () => {
-    if (beforeState) {
+    if (beforeState || status !== "loading") {
+      return "block";
+    } else {
+      return "none";
+    }
+  };
+  const hideNext = () => {
+    if (status !== "loading") {
       return "block";
     } else {
       return "none";
@@ -20,13 +27,13 @@ export const BottomNav = () => {
   };
 
   const clickBack = () => {
-    dispatch(prevList(beforeState));
     dispatch(decrementPageCount());
+    dispatch(prevList(beforeState));
   };
 
   const clickNext = () => {
-    dispatch(nextList(afterState));
     dispatch(incrementPageCount());
+    dispatch(nextList(afterState));
   };
 
   return (
@@ -49,12 +56,18 @@ export const BottomNav = () => {
           marginRight: "5rem",
           display: hideBack(),
         }}
-        // disabled={!beforeState}
         onClick={clickBack}
       >
         Back
       </button>
-      <button onClick={clickNext}>Next</button>
+      <button
+        style={{
+          display: hideNext(),
+        }}
+        onClick={clickNext}
+      >
+        Next
+      </button>
     </div>
   );
 };

@@ -32,13 +32,3 @@ function App() {
 }
 
 export default App;
-
-//   const [listings, setListings] = useState([]);
-
-//   console.log(listings);
-
-//   useEffect(() => {
-//     fetch("https://www.reddit.com/hot.json")
-//       .then((response) => response.json())
-//       .then((data) => setListings(data.data.children));
-//   }, []);
