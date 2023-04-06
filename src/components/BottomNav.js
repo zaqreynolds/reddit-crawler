@@ -12,14 +12,14 @@ export const BottomNav = () => {
   const afterState = useSelector(({ content }) => content.data?.data?.after);
   const status = useSelector((state) => state.content.status);
   const hideBack = () => {
-    if (beforeState || status !== "loading") {
+    if (beforeState && status === "succeeded") {
       return "block";
     } else {
       return "none";
     }
   };
   const hideNext = () => {
-    if (status !== "loading") {
+    if (status === "succeeded") {
       return "block";
     } else {
       return "none";
