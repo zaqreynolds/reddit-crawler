@@ -64,15 +64,29 @@ export const nextList = createAsyncThunk(
   }
 );
 
+export const fetchDetails = createAsyncThunk(
+  "content/fetchDetails",
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    let response;
+    response = await fetch(`https://api.reddit.com/comments/${id}.json`);
+    const details = await response.json();
+    console.log("DEETS", details);
+    return details;
+  }
+);
+
 const displaySlice = createSlice({
   name: "content",
   initialState: {
     data: [],
     status: "idle",
+    detailStatus: "loading",
     error: null,
     pageCount: 0,
     filter: "hot",
     searchString: "",
+    details: [],
   },
   reducers: {
     incrementPageCount: (state) => {
@@ -135,6 +149,17 @@ const displaySlice = createSlice({
       })
       .addCase(nextList.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(fetchDetails.pending, (state) => {
+        state.detailStatus = "loading";
+      })
+      .addCase(fetchDetails.fulfilled, (state, action) => {
+        state.detailStatus = "succeeded";
+        state.details = action.payload;
+      })
+      .addCase(fetchDetails.rejected, (state, action) => {
+        state.detailStatus = "failed";
         state.error = action.error.message;
       });
   },

@@ -1,13 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchContent,
-  searchReddit,
-  selectFilter,
-  resetPageCount,
-} from "./displaySlice";
+import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
 
-export const Filter = () => {
+const Filter = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.content.searchString);
   const hideOption = () => {
@@ -44,3 +39,5 @@ export const Filter = () => {
     </div>
   );
 };
+
+export default Filter;

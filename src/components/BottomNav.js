@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { nextList, prevList } from "./displaySlice";
 import { incrementPageCount, decrementPageCount } from "./displaySlice";
 
-export const BottomNav = () => {
+const BottomNav = () => {
   const dispatch = useDispatch();
 
   const beforeState = useSelector(({ content }) => {
@@ -71,3 +71,5 @@ export const BottomNav = () => {
     </div>
   );
 };
+
+export default BottomNav;

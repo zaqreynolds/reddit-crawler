@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchReddit, setSearchString } from "./displaySlice";
 
-export const Search = () => {
+const Search = () => {
   const dispatch = useDispatch();
   const searchString = useSelector((state) => state.content.searchString);
 
@@ -41,3 +41,5 @@ export const Search = () => {
     </form>
   );
 };
+
+export default Search;
