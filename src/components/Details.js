@@ -33,7 +33,10 @@ export const Details = () => {
       }}
     >
       <Card style={{ flex: 1 }} post={details[0].data.children[0]} />
-      <Comments style={{ flex: 1 }} />
+      <div style={{ display: "flex", marginLeft: "0 auto" }}>
+        <h2 style={{ color: "white", paddingLeft: "10px" }}>Comments:</h2>
+        <Comments comments={details[1].data.children} style={{ flex: 1 }} />
+      </div>
     </div>
   );
 };

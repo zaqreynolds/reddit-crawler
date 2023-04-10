@@ -1,18 +1,24 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Comments = () => {
-  const details = useSelector((state) => state.content.details[1].data);
-
+const Comments = ({ comments }) => {
+  //   const details = useSelector((state) => state.content.details[1].data);
+  //   console.log("COMMENTS", details.children);
   return (
-    <div style={{ display: "flex", marginLeft: "0 auto" }}>
-      <h2 style={{ color: "white", paddingLeft: "10px" }}>Comments:</h2>
-      <ul style={{ color: "white" }}>
-        {details.children.map((comment) => (
-          <li>{comment.data.body}</li>
-        ))}
-      </ul>
-    </div>
+    <ul style={{ color: "white" }}>
+      {comments.map(
+        (comment) =>
+          comment.kind !== "more" && (
+            <li key={comment.data.id}>
+              {comment.data.body}{" "}
+              {comment.data?.replies?.data?.children?.length &&
+                comment.data.replies.kind !== "more" && (
+                  <Comments comments={comment.data.replies?.data?.children} />
+                )}
+            </li>
+          )
+      )}
+    </ul>
   );
 };
 
