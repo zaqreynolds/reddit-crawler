@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "./displaySlice";
 import Card from "./Card";
+import Comments from "./Comments";
 
 export const Details = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,14 @@ export const Details = () => {
   }
   console.log("card details", details);
   return (
-    <div>
-      <Card post={details[0].data.children[0]} />
+    <div
+      style={{
+        display: "flex",
+        marginTop: "70px",
+      }}
+    >
+      <Card style={{ flex: 1 }} post={details[0].data.children[0]} />
+      <Comments style={{ flex: 1 }} />
     </div>
   );
 };

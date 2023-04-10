@@ -79,14 +79,14 @@ export const fetchDetails = createAsyncThunk(
 const displaySlice = createSlice({
   name: "content",
   initialState: {
-    data: [],
+    data: {},
     status: "idle",
     detailStatus: "loading",
     error: null,
     pageCount: 0,
     filter: "hot",
     searchString: "",
-    details: [],
+    details: {},
   },
   reducers: {
     incrementPageCount: (state) => {
