@@ -30,11 +30,30 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-
+  console.log("THE LIST", posts);
   return (
-    <div>
-      <Search />
-      <Filter />
+    <div
+      id="Results"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        margin: "auto",
+        flexWrap: "wrap",
+        justifyItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          margin: "auto",
+          justifySelf: "center",
+          alignItems: "center",
+        }}
+      >
+        <Search />
+        <Filter />
+      </div>
 
       <div
         style={{

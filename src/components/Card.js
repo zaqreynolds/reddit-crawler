@@ -16,8 +16,28 @@ const Card = ({ post }) => {
           height="100%"
         />
       );
+    } else if (post.data.post_hint === "rich:video") {
+      return (
+        <ReactPlayer
+          url={post.data.url}
+          playing={false}
+          controls={true}
+          width="100%"
+          height="100%"
+        />
+      );
+    } else if (post.data.thumbnail === "nsfw") {
+      return (
+        <a href={post.data.url} style={{ color: "blue" }}>
+          NSFW
+        </a>
+      );
     } else {
-      return null;
+      return (
+        <a href={post.data.url} style={{ color: "blue" }}>
+          Click for More!
+        </a>
+      );
     }
   };
   return (

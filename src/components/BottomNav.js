@@ -13,16 +13,16 @@ const BottomNav = () => {
   const status = useSelector((state) => state.content.status);
   const hideBack = () => {
     if (beforeState && status === "succeeded") {
-      return "block";
+      return false;
     } else {
-      return "none";
+      return true;
     }
   };
   const hideNext = () => {
     if (status === "succeeded") {
-      return "block";
+      return false;
     } else {
-      return "none";
+      return true;
     }
   };
 
@@ -38,34 +38,35 @@ const BottomNav = () => {
 
   return (
     <div
-      id="nextBack"
+      id="bottomNav"
       style={{
         position: "fixed",
         zIndex: "5",
-        width: "100%",
+        width: "50%",
         height: "30px",
         bottom: "0",
         display: "flex",
-        justifyContent: "center",
-        backgroundColor: "#182a35",
+        // backgroundColor: "#182a35",
+        backgroundColor: "tomato",
         paddingTop: "5px",
+        justifyContent: "center",
+        margin: "auto",
+        gap: "10px",
       }}
     >
       <button
-        style={{
-          marginRight: "5rem",
-          display: hideBack(),
-        }}
+        id="backButton"
+        style={
+          {
+            // marginRight: "5rem",
+          }
+        }
         onClick={clickBack}
+        disabled={hideBack()}
       >
         Back
       </button>
-      <button
-        style={{
-          display: hideNext(),
-        }}
-        onClick={clickNext}
-      >
+      <button id="nextButton" onClick={clickNext} disabled={hideNext()}>
         Next
       </button>
     </div>

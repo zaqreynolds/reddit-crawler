@@ -16,7 +16,6 @@ export const Details = () => {
   useEffect(() => {
     dispatch(fetchDetails(id));
   }, [dispatch, id]);
-  console.log("STATUS", status);
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -24,18 +23,30 @@ export const Details = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-  console.log("card details", details);
   return (
     <div
       style={{
         display: "flex",
         marginTop: "70px",
+        justifyContent: "center",
+        flexWrap: "wrap",
       }}
     >
-      <Card style={{ flex: 1 }} post={details[0].data.children[0]} />
-      <div style={{ display: "flex", marginLeft: "0 auto" }}>
-        <h2 style={{ color: "white", paddingLeft: "10px" }}>Comments:</h2>
-        <Comments comments={details[1].data.children} style={{ flex: 1 }} />
+      <Card post={details[0].data.children[0]} />
+      <div style={{ display: "flex", marginLeft: "0 auto", flexWrap: "wrap" }}>
+        <h2
+          style={{
+            color: "white",
+            paddingLeft: "10px",
+            display: "block",
+            width: "100%",
+            height: "fitContent",
+            textAlign: "center",
+          }}
+        >
+          Comments:
+        </h2>
+        <Comments comments={details[1].data.children} />
       </div>
     </div>
   );

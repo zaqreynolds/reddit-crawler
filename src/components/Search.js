@@ -20,9 +20,10 @@ const Search = () => {
       onSubmit={handleSubmit}
       style={{
         marginTop: "48px",
-        display: "inline-flex",
+        display: "block",
         color: "white",
         height: "fit-content",
+        justifySelf: "center",
       }}
     >
       <label htmlFor="searchInput">

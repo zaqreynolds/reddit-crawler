@@ -23,9 +23,17 @@ const Filter = () => {
   };
 
   return (
-    <div style={{ display: "inline-flex", paddingTop: "45px", margin: "5px" }}>
+    <div
+      id="Filter"
+      style={{
+        display: "flex",
+        paddingTop: "45px",
+        margin: "5px",
+        height: "fitContent",
+      }}
+    >
       <div style={{ color: "white" }}>Sort By: </div>
-      <select onChange={handleFilterChange}>
+      <select onChange={handleFilterChange} style={{ height: "25px" }}>
         <option value="hot">Hot</option>
         <option value="new">New</option>
         <option value="top">Top</option>
