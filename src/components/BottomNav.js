@@ -42,28 +42,19 @@ const BottomNav = () => {
       style={{
         position: "fixed",
         zIndex: "5",
-        width: "50%",
+        width: "100%",
         height: "30px",
         bottom: "0",
         display: "flex",
-        // backgroundColor: "#182a35",
-        backgroundColor: "tomato",
+        backgroundColor: "#182a35",
+
         paddingTop: "5px",
         justifyContent: "center",
         margin: "auto",
         gap: "10px",
       }}
     >
-      <button
-        id="backButton"
-        style={
-          {
-            // marginRight: "5rem",
-          }
-        }
-        onClick={clickBack}
-        disabled={hideBack()}
-      >
+      <button id="backButton" onClick={clickBack} disabled={hideBack()}>
         Back
       </button>
       <button id="nextButton" onClick={clickNext} disabled={hideNext()}>

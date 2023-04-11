@@ -19,11 +19,7 @@ const Search = () => {
     <form
       onSubmit={handleSubmit}
       style={{
-        marginTop: "48px",
-        display: "block",
         color: "white",
-        height: "fit-content",
-        justifySelf: "center",
       }}
     >
       <label htmlFor="searchInput">

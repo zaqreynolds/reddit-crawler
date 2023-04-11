@@ -33,7 +33,13 @@ export const Details = () => {
       }}
     >
       <Card post={details[0].data.children[0]} />
-      <div style={{ display: "flex", marginLeft: "0 auto", flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: "0 auto",
+        }}
+      >
         <h2
           style={{
             color: "white",

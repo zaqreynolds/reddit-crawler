@@ -32,39 +32,40 @@ export const Results = () => {
   }
   console.log("THE LIST", posts);
   return (
-    <div
-      id="Results"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        flexWrap: "wrap",
-        justifyItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <>
       <div
+        id="Results"
         style={{
           display: "flex",
-          margin: "auto",
-          justifySelf: "center",
-          alignItems: "center",
-        }}
-      >
-        <Search />
-        <Filter />
-      </div>
-
-      <div
-        style={{
-          display: "inline-flex",
           flexDirection: "column",
-          justifyContent: "center",
-          width: "100%",
-          clear: "right",
+          margin: "auto",
         }}
       >
-        <ul style={{ paddingTop: "38px" }}>
+        <div
+          id="SearchFilter"
+          style={{
+            display: "flex",
+            // margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Search />
+          <Filter />
+        </div>
+
+        <ul
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+
+            width: "100%",
+            maxWidth: "550px",
+            padding: 0,
+            margin: 0,
+          }}
+        >
           {posts.map((post) => (
             <Link to={`/${post.data.id}`} key={post.data.id}>
               <Card post={post} />
@@ -73,6 +74,6 @@ export const Results = () => {
         </ul>
       </div>
       <BottomNav />
-    </div>
+    </>
   );
 };

@@ -27,13 +27,11 @@ const Filter = () => {
       id="Filter"
       style={{
         display: "flex",
-        paddingTop: "45px",
         margin: "5px",
-        height: "fitContent",
       }}
     >
       <div style={{ color: "white" }}>Sort By: </div>
-      <select onChange={handleFilterChange} style={{ height: "25px" }}>
+      <select onChange={handleFilterChange} style={{}}>
         <option value="hot">Hot</option>
         <option value="new">New</option>
         <option value="top">Top</option>

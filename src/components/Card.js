@@ -4,7 +4,14 @@ const Card = ({ post }) => {
   const mediaType = (post) => {
     if (post.data.post_hint === "image") {
       return (
-        <img src={post.data.url} style={{ paddingTop: "10px" }} alt=""></img>
+        <img
+          src={post.data.url}
+          style={{
+            paddingTop: "10px",
+            width: "100%",
+          }}
+          alt=""
+        ></img>
       );
     } else if (post.data.post_hint === "hosted:video") {
       return (
@@ -41,30 +48,27 @@ const Card = ({ post }) => {
     }
   };
   return (
-    <li style={{ listStyleType: "none" }}>
-      <div
-        style={{
-          margin: "0px auto 10px auto",
-          border: "1px solid black",
-          padding: "10px",
-          height: "fit-content",
-          width: "500px",
-          borderRadius: "5px",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          backgroundColor: "snow",
-        }}
-      >
-        <div style={{ fontWeight: "bold" }}>{post.data.title}</div>
-        <br></br>
-        {post.data.author}
-        <br></br>
-        {mediaType(post)}
-        <br></br>
-        <div>Comments:{post.data.num_comments}</div>
-      </div>
+    <li
+      style={{
+        listStyleType: "none",
+        marginBottom: "10px",
+        border: "1px solid black",
+        padding: "10px",
+        height: "fit-content",
+        width: "100%",
+        maxWidth: "100%",
+        borderRadius: "5px",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        backgroundColor: "snow",
+      }}
+    >
+      <div style={{ fontWeight: "bold" }}>{post.data.title}</div>
+      <div>{post.data.author}</div>
+      <div>{mediaType(post)}</div>
+      <div>Comments:{post.data.num_comments}</div>
     </li>
   );
 };
