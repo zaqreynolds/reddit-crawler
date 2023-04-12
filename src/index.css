@@ -20,3 +20,12 @@ a:visited {
   text-decoration: inherit;
   color: inherit;
 }
+/* .collapse {
+  height: 0px;
+  overflow: hidden;
+  transition: height ease 0.9s;
+}
+
+.topComment {
+  transition: height ease 0.9s;
+} */

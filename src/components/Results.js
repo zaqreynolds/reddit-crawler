@@ -24,7 +24,7 @@ export const Results = () => {
   }, [dispatch]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <div style={{ color: "red" }}>Loading...</div>;
   }
 
   if (status === "failed") {
@@ -40,14 +40,12 @@ export const Results = () => {
           flexDirection: "column",
           justifyContent: "center",
           margin: "auto",
-          // width: "100%",
         }}
       >
         <div
           id="SearchFilter"
           style={{
             display: "flex",
-            // margin: "auto",
             justifyContent: "center",
             alignItems: "center",
           }}
