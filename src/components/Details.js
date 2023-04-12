@@ -32,12 +32,16 @@ export const Details = () => {
         flexWrap: "wrap",
       }}
     >
-      <Card post={details[0].data.children[0]} />
+      <div id="detailCard" style={{ maxWidth: "80%" }}>
+        <Card post={details[0].data.children[0]} />
+      </div>
       <div
+        id="commentsContainer"
         style={{
           display: "flex",
           flexDirection: "column",
           marginLeft: "0 auto",
+          maxWidth: "95%",
         }}
       >
         <h2

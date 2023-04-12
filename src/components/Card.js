@@ -54,18 +54,19 @@ const Card = ({ post }) => {
         marginBottom: "10px",
         border: "1px solid black",
         padding: "10px",
-        height: "fit-content",
         width: "100%",
-        maxWidth: "100%",
         borderRadius: "5px",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         backgroundColor: "snow",
+        boxSizing: "border-box",
+        boxShadow: "0px 5px 5px 2px dimGrey",
       }}
     >
-      <div style={{ fontWeight: "bold" }}>{post.data.title}</div>
+      <div style={{ fontWeight: "bold", fontSize: "17px" }}>
+        {post.data.title}
+      </div>
       <div>{post.data.author}</div>
       <div>{mediaType(post)}</div>
       <div>Comments:{post.data.num_comments}</div>

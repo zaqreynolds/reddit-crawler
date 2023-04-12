@@ -7,6 +7,8 @@ const Layout = () => {
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#182a35",
+        justifyContent: "center",
+        width: "100%",
       }}
     >
       <div
@@ -27,9 +29,7 @@ const Layout = () => {
         </Link>
       </div>
       <div id="TopSpacer" style={{ height: "38px" }} />
-      {/* <div id="Outlet" style={{ display: "flex", flexGrow: 1 }}> */}
       <Outlet />
-      {/* </div> */}
     </div>
   );
 };

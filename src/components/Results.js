@@ -38,7 +38,9 @@ export const Results = () => {
         style={{
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
           margin: "auto",
+          // width: "100%",
         }}
       >
         <div
@@ -59,8 +61,6 @@ export const Results = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-
-            width: "100%",
             maxWidth: "550px",
             padding: 0,
             margin: 0,
