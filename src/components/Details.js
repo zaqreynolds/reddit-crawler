@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "./displaySlice";
 import Card from "./Card";
 import Comments from "./Comments";
+import Loading from "./Loading";
 
 export const Details = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,11 @@ export const Details = () => {
     dispatch(fetchDetails(id));
   }, [dispatch, id]);
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   if (status === "failed") {

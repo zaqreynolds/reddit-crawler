@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "./displaySlice";
-
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import Filter from "./Filter";
 import BottomNav from "./BottomNav";
 import Card from "./Card";
+import Loading from "./Loading";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const Results = () => {
   }, [dispatch]);
 
   if (status === "loading") {
-    return <div style={{ color: "red" }}>Loading...</div>;
+    return <Loading />;
   }
 
   if (status === "failed") {
