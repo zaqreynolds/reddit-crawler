@@ -3,16 +3,7 @@ import ReactPlayer from "react-player";
 const Card = ({ post }) => {
   const mediaType = (post) => {
     if (post.data.post_hint === "image") {
-      return (
-        <img
-          src={post.data.url}
-          style={{
-            paddingTop: "10px",
-            width: "100%",
-          }}
-          alt=""
-        ></img>
-      );
+      return <img className="cardImage" src={post.data.url} alt=""></img>;
     } else if (post.data.post_hint === "hosted:video") {
       return (
         <ReactPlayer
@@ -35,42 +26,27 @@ const Card = ({ post }) => {
       );
     } else if (post.data.thumbnail === "nsfw") {
       return (
-        <a href={post.data.url} style={{ color: "blue" }}>
+        <a className="cardLink" href={post.data.url}>
           NSFW
         </a>
       );
     } else {
       return (
-        <a href={post.data.url} style={{ color: "blue" }}>
+        <a className="cardLink" href={post.data.url}>
           Click for More!
         </a>
       );
     }
   };
   return (
-    <li
-      style={{
-        listStyleType: "none",
-        marginBottom: "10px",
-        border: "1px solid black",
-        padding: "10px",
-        width: "100%",
-        borderRadius: "5px",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "snow",
-        boxSizing: "border-box",
-        boxShadow: "0px 5px 5px 2px dimGrey",
-      }}
-    >
-      <div style={{ fontWeight: "bold", fontSize: "17px" }}>
-        {post.data.title}
+    <div className="cardInfo">
+      <div className="cardTitle">{post.data.title}</div>
+      <div className="cardAuthoer">
+        <em>posted by:</em> {post.data.author}
       </div>
-      <div>{post.data.author}</div>
-      <div>{mediaType(post)}</div>
-      <div>Comments:{post.data.num_comments}</div>
-    </li>
+      <div className="cardMedia">{mediaType(post)}</div>
+      <div className="cardComments">Comments:{post.data.num_comments}</div>
+    </div>
   );
 };
 

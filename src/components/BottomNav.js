@@ -37,23 +37,7 @@ const BottomNav = () => {
   };
 
   return (
-    <div
-      id="bottomNav"
-      style={{
-        position: "fixed",
-        zIndex: "5",
-        width: "100%",
-        height: "30px",
-        bottom: "0",
-        display: "flex",
-        backgroundColor: "#182a35",
-
-        paddingTop: "5px",
-        justifyContent: "center",
-        margin: "auto",
-        gap: "10px",
-      }}
-    >
+    <div id="bottomNav">
       <button id="backButton" onClick={clickBack} disabled={hideBack()}>
         Back
       </button>

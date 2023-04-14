@@ -33,37 +33,13 @@ export const Results = () => {
   console.log("THE LIST", posts);
   return (
     <>
-      <div
-        id="Results"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          margin: "auto",
-        }}
-      >
-        <div
-          id="SearchFilter"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      <div id="results">
+        <div id="searchFilter">
           <Search />
           <Filter />
         </div>
 
-        <ul
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            maxWidth: "550px",
-            padding: 0,
-            margin: 0,
-          }}
-        >
+        <ul className="resultsList">
           {posts.map((post) => (
             <Link to={`/${post.data.id}`} key={post.data.id}>
               <Card post={post} />

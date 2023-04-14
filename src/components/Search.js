@@ -16,12 +16,7 @@ const Search = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        color: "white",
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <label htmlFor="searchInput">
         Search:
         <input
@@ -32,7 +27,7 @@ const Search = () => {
           onChange={handleInputChange}
         ></input>
       </label>
-      <button type="submit" style={{ height: "fit-content" }}>
+      <button id="searchSubmit" type="submit">
         Submit
       </button>
     </form>

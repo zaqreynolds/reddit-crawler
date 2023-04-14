@@ -29,38 +29,12 @@ export const Details = () => {
     return <div>{error}</div>;
   }
   return (
-    <div
-      style={{
-        display: "flex",
-        marginTop: "70px",
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <div id="detailCard" style={{ maxWidth: "80%" }}>
+    <div className="details">
+      <div id="detailCard">
         <Card post={details[0].data.children[0]} />
       </div>
-      <div
-        id="commentsContainer"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginLeft: "0 auto",
-          maxWidth: "95%",
-        }}
-      >
-        <h2
-          style={{
-            color: "white",
-            paddingLeft: "10px",
-            display: "block",
-            width: "100%",
-            height: "fitContent",
-            textAlign: "center",
-          }}
-        >
-          Comments:
-        </h2>
+      <div className="commentsContainer">
+        <h2>Comments:</h2>
         <Comments comments={details[1].data.children} />
       </div>
     </div>

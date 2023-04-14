@@ -23,13 +23,7 @@ const Filter = () => {
   };
 
   return (
-    <div
-      id="Filter"
-      style={{
-        display: "flex",
-        margin: "5px",
-      }}
-    >
+    <div id="filter">
       <div style={{ color: "white" }}>Sort By: </div>
       <select onChange={handleFilterChange} style={{}}>
         <option value="hot">Hot</option>
