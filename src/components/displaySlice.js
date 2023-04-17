@@ -9,7 +9,6 @@ export const fetchContent = createAsyncThunk(
       `https://api.reddit.com/${state.content.filter}.json`
     );
     const data = await response.json();
-    console.log("DATA", data);
     return data;
   }
 );
@@ -71,7 +70,6 @@ export const fetchDetails = createAsyncThunk(
     let response;
     response = await fetch(`https://api.reddit.com/comments/${id}.json`);
     const details = await response.json();
-    console.log("DEETS", details);
     return details;
   }
 );

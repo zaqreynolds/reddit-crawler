@@ -12,6 +12,8 @@ export const Details = () => {
   const status = useSelector((state) => state.content.detailStatus);
   const error = useSelector((state) => state.content.error);
 
+  console.log("DETAILS", details);
+
   let { id } = useParams();
 
   useEffect(() => {
