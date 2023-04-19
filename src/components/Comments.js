@@ -5,7 +5,10 @@ const Comments = ({ comments }) => {
   return (
     <ul style={{ color: "white" }}>
       {comments.map(
-        (comment) => comment.kind !== "more" && <Comment comment={comment} />
+        (comment) =>
+          comment.kind !== "more" && (
+            <Comment comment={comment} key={comment.data.id} />
+          )
       )}
     </ul>
   );

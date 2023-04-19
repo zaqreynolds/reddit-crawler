@@ -9,7 +9,7 @@ const Comment = ({ comment }) => {
   };
   const buttonClass = comment.data.replies ? "withReplies" : "noReplies";
   return (
-    <li key={comment.data.id}>
+    <li>
       {comment.data.body}{" "}
       <button className={buttonClass} onClick={toggle}>
         {open ? "close" : "replies"}
