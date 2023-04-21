@@ -30,7 +30,6 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-  console.log("THE LIST", posts);
   return (
     <>
       <div id="results">
@@ -41,9 +40,7 @@ export const Results = () => {
 
         <ul className="resultsList">
           {posts.map((post) => (
-            <Link to={`/${post.data.id}`} key={post.data.id}>
-              <Card post={post} />
-            </Link>
+            <Card post={post} key={post.data.id} />
           ))}
         </ul>
       </div>

@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import { NavLink } from "react-router-dom";
 
 const Card = ({ post }) => {
   const mediaType = (post) => {
@@ -44,8 +45,11 @@ const Card = ({ post }) => {
       <div className="cardAuthoer">
         <em>posted by:</em> {post.data.author}
       </div>
+
       <div className="cardMedia">{mediaType(post)}</div>
-      <div className="cardComments">Comments:{post.data.num_comments}</div>
+      <NavLink to={`/${post.data.id}`} activeclassname="active">
+        <div className="cardComments">Comments:{post.data.num_comments}</div>
+      </NavLink>
     </div>
   );
 };
