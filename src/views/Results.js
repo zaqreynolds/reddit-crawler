@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Filter from "../components/Filter";
 import BottomNav from "../components/BottomNav";
-import Card from "../components/PostCard";
 import Loading from "../components/Loading";
-import { Box, Container } from "@mui/material";
+import { Box, Container, List, ListItem } from "@mui/material";
+import PostCard from "../components/PostCard";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -33,17 +33,23 @@ export const Results = () => {
   }
   return (
     <Container>
-      <Box id="results">
+      <Box
+        id="results"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Box id="searchFilter">
           <Search />
           <Filter />
         </Box>
 
-        <ul className="resultsList">
+        <List>
           {posts.map((post) => (
-            <Card post={post} key={post.data.id} />
+            <PostCard post={post} key={post.data.id} />
           ))}
-        </ul>
+        </List>
       </Box>
       <BottomNav />
     </Container>
