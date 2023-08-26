@@ -21,10 +21,11 @@ const Layout = () => {
     //     </Link>
     //   </div>
     //   <div id="topSpacer" />
-    //   <Outlet />
+    //
     // </div>
     <Box>
       <Header />
+      <Outlet />
     </Box>
   );
 };

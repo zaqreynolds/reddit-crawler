@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent } from "./displaySlice";
+import { fetchContent } from "../components/displaySlice";
 import { Link } from "react-router-dom";
-import Search from "./Search";
-import Filter from "./Filter";
-import BottomNav from "./BottomNav";
-import Card from "./Card";
-import Loading from "./Loading";
+import Search from "../components/Search";
+import Filter from "../components/Filter";
+import BottomNav from "../components/BottomNav";
+import Card from "../components/Card";
+import Loading from "../components/Loading";
 
 export const Results = () => {
   const dispatch = useDispatch();
