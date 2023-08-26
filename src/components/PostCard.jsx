@@ -1,3 +1,4 @@
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
 import { NavLink } from "react-router-dom";
 
@@ -40,17 +41,21 @@ const PostCard = ({ post }) => {
     }
   };
   return (
-    <div className="cardInfo">
-      <div className="cardTitle">{post.data.title}</div>
-      <div className="cardAuthoer">
-        <em>posted by:</em> {post.data.author}
-      </div>
+    <Card className="cardInfo" elevation={6}>
+      <CardContent>
+        <Typography className="cardTitle">{post.data.title}</Typography>
+        <Typography className="cardAuthoer">
+          <em>posted by:</em> {post.data.author}
+        </Typography>
 
-      <div className="cardMedia">{mediaType(post)}</div>
-      <NavLink to={`/${post.data.id}`} activeclassname="active">
-        <div className="cardComments">Comments:{post.data.num_comments}</div>
-      </NavLink>
-    </div>
+        <Box className="cardMedia">{mediaType(post)}</Box>
+        <NavLink to={`/${post.data.id}`} activeclassname="active">
+          <Typography className="cardComments">
+            Comments:{post.data.num_comments}
+          </Typography>
+        </NavLink>
+      </CardContent>
+    </Card>
   );
 };
 
