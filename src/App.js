@@ -1,15 +1,15 @@
 import React from "react";
 import { Results } from "./components/Results";
 import { Route, Routes } from "react-router-dom";
-import { Details } from "./components/Details";
-import Layout from "./components/Layout";
+import { Details } from "./views/Details";
+import Layout from "./views/Layout";
 import {
   createTheme,
   CssBaseline,
   ThemeProvider,
   useMediaQuery,
 } from "@mui/material";
-import Green from "@mui/material/colors/green";
+import Grey from "@mui/material/colors/grey";
 
 function App() {
   const isSmallViewport = useMediaQuery("(max-width:600px)");
@@ -18,7 +18,7 @@ function App() {
       fontSize: isSmallViewport ? 12 : 14,
     },
     palette: {
-      primary: Green,
+      primary: Grey,
     },
   });
 

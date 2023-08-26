@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetails } from "./displaySlice";
-import Card from "./Card";
-import Comments from "./Comments";
-import Loading from "./Loading";
+import { fetchDetails } from "../components/displaySlice";
+import Card from "../components/Card";
+import Comments from "../components/Comments";
+import Loading from "../components/Loading";
 
 export const Details = () => {
   const dispatch = useDispatch();
