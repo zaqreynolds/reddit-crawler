@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Filter from "../components/Filter";
 import BottomNav from "../components/BottomNav";
-import Card from "../components/Card";
+import Card from "../components/PostCard";
 import Loading from "../components/Loading";
+import { Box, Container } from "@mui/material";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -31,20 +32,20 @@ export const Results = () => {
     return <div>{error}</div>;
   }
   return (
-    <>
-      <div id="results">
-        <div id="searchFilter">
+    <Container>
+      <Box id="results">
+        <Box id="searchFilter">
           <Search />
           <Filter />
-        </div>
+        </Box>
 
         <ul className="resultsList">
           {posts.map((post) => (
             <Card post={post} key={post.data.id} />
           ))}
         </ul>
-      </div>
+      </Box>
       <BottomNav />
-    </>
+    </Container>
   );
 };

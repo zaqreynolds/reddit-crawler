@@ -1,7 +1,7 @@
 import ReactPlayer from "react-player";
 import { NavLink } from "react-router-dom";
 
-const Card = ({ post }) => {
+const PostCard = ({ post }) => {
   const mediaType = (post) => {
     if (post.data.post_hint === "image") {
       return <img className="cardImage" src={post.data.url} alt=""></img>;
@@ -54,4 +54,4 @@ const Card = ({ post }) => {
   );
 };
 
-export default Card;
+export default PostCard;

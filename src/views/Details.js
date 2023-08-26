@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "../components/displaySlice";
-import Card from "../components/Card";
+import Card from "../components/PostCard";
 import Comments from "../components/Comments";
 import Loading from "../components/Loading";
 
