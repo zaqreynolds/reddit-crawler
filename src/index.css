@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -27,9 +27,10 @@ a:link {
 a:visited {
   text-decoration: inherit;
   color: inherit;
-}
+} */
+
 /* BOTTOM NAV */
-#bottomNav {
+/* #bottomNav {
   position: fixed;
   z-index: 5;
   width: 100%;
@@ -41,10 +42,11 @@ a:visited {
   justify-content: center;
   margin: auto;
   gap: 10px;
-}
+} */
 
 /* CARD */
-.cardInfo {
+
+/* .cardInfo {
   margin-bottom: 10px;
   border: 1px solid black;
   padding: 10px;
@@ -83,18 +85,19 @@ a:visited {
 
 .active {
   display: none;
-}
+} */
 
 /* COMMENTs AND REPLIES */
-.withReplies {
+/* .withReplies {
   display: inline-flex;
 }
 
 .noReplies {
   display: none;
-}
+} */
+
 /* DETAILS */
-.details {
+/* .details {
   display: flex;
   margin-top: 15px;
   justify-content: center;
@@ -109,15 +112,16 @@ a:visited {
   display: flex;
   flex-direction: column;
   max-width: 95%;
-}
+} */
 
 /* FILTER */
-#filter {
+/* #filter {
   display: flex;
   margin: 5px;
-}
+} */
+
 /* LAYOUT */
-#generalBody {
+/* #generalBody {
   display: flex;
   flex-direction: column;
   background-color: #182a35;
@@ -136,10 +140,10 @@ a:visited {
 }
 #topSpacer {
   height: 38px;
-}
+} */
 
 /* LOADING */
-
+/* 
 .logoContainer {
   display: flex;
   width: 300px;
@@ -177,10 +181,10 @@ a:visited {
   z-index: 10;
   text-align: center;
   font-size: 20px;
-}
+} */
 
 /* RESULTS */
-#results {
+/* #results {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,12 +202,14 @@ a:visited {
   max-width: 550px;
   padding: 0;
   margin: 0;
-}
+} */
 
 /* SEARCH */
-form {
+/* form {
   color: white;
 }
 #searchSubmit {
   height: fit-content;
 }
+
+ */
