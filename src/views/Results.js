@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "../components/displaySlice";
-import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Filter from "../components/Filter";
 import BottomNav from "../components/BottomNav";
 import Loading from "../components/Loading";
-import { Box, Button, List } from "@mui/material";
+import { Box, Button, List, ListItem } from "@mui/material";
 import PostCard from "../components/PostCard";
 import { Masonry } from "@mui/lab";
+import { grey } from "@mui/material/colors";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -39,12 +39,15 @@ export const Results = () => {
   };
 
   return (
-    <Box sx={{ m: 0, justifyContent: "center" }}>
+    <Box id="what" sx={{ m: 0, justifyContent: "center" }}>
       <Box
         id="results"
         sx={{
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 0,
         }}
       >
         <Box id="searchFilter" sx={{ display: "flex" }}>
@@ -54,9 +57,13 @@ export const Results = () => {
         </Box>
         {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
-          <List>
+          <List sx={{ m: 0 }}>
             {posts.map((post) => (
-              <PostCard post={post} key={post.data.id} />
+              <ListItem
+                sx={{ maxWidth: "95svw", justifyContent: "center", px: 0 }}
+              >
+                <PostCard post={post} key={post.data.id} />
+              </ListItem>
             ))}
           </List>
         )}

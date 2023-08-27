@@ -23,7 +23,7 @@ const Layout = () => {
     //   <div id="topSpacer" />
     //
     // </div>
-    <Box>
+    <Box sx={{ backgroundColor: "primary.lighter" }}>
       <Header />
       <Outlet />
     </Box>

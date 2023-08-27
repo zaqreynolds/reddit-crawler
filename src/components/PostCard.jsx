@@ -48,30 +48,28 @@ const PostCard = ({ post }) => {
     }
   };
   return (
-    <ListItem sx={{ p: 0, maxWidth: "95vw", justifyContent: "center" }}>
-      <Card elevation={6}>
-        <CardContent sx={{ textAlign: "center" }}>
-          <Typography className="cardTitle">
-            <b>{post.data.title}</b>
-          </Typography>
-          <Typography className="cardAuthoer">
-            <em>posted by:</em> {post.data.author}
-          </Typography>
+    <Card elevation={6}>
+      <CardContent sx={{ textAlign: "center" }}>
+        <Typography className="cardTitle">
+          <b>{post.data.title}</b>
+        </Typography>
+        <Typography className="cardAuthoer">
+          <em>posted by:</em> {post.data.author}
+        </Typography>
 
-          <Box
-            className="cardMedia"
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            {mediaType(post)}
-          </Box>
-          <NavLink to={`/${post.data.id}`} activeclassname="active">
-            <Typography className="cardComments">
-              Comments:{post.data.num_comments}
-            </Typography>
-          </NavLink>
-        </CardContent>
-      </Card>
-    </ListItem>
+        <Box
+          className="cardMedia"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          {mediaType(post)}
+        </Box>
+        <NavLink to={`/${post.data.id}`} activeclassname="active">
+          <Typography className="cardComments">
+            Comments:{post.data.num_comments}
+          </Typography>
+        </NavLink>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -18,8 +18,10 @@ function App() {
       fontSize: isSmallViewport ? 12 : 14,
     },
     palette: {
-      primary: Grey,
-      // mode: "dark",
+      primary: {
+        main: Grey[900],
+        lighter: Grey[300],
+      },
     },
   });
 
