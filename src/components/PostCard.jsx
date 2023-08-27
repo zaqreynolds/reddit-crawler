@@ -5,7 +5,14 @@ import { NavLink } from "react-router-dom";
 const PostCard = ({ post }) => {
   const mediaType = (post) => {
     if (post.data.post_hint === "image") {
-      return <img className="cardImage" src={post.data.url} alt=""></img>;
+      return (
+        <img
+          className="cardImage"
+          src={post.data.url}
+          alt=""
+          style={{ maxWidth: "100%" }}
+        />
+      );
     } else if (post.data.post_hint === "hosted:video") {
       return (
         <ReactPlayer
@@ -43,13 +50,20 @@ const PostCard = ({ post }) => {
   return (
     <ListItem sx={{ p: 0, maxWidth: "95vw", justifyContent: "center" }}>
       <Card elevation={6} sx={{ my: 2 }}>
-        <CardContent>
-          <Typography className="cardTitle">{post.data.title}</Typography>
+        <CardContent sx={{ textAlign: "center" }}>
+          <Typography className="cardTitle">
+            <b>{post.data.title}</b>
+          </Typography>
           <Typography className="cardAuthoer">
             <em>posted by:</em> {post.data.author}
           </Typography>
 
-          <Box className="cardMedia">{mediaType(post)}</Box>
+          <Box
+            className="cardMedia"
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            {mediaType(post)}
+          </Box>
           <NavLink to={`/${post.data.id}`} activeclassname="active">
             <Typography className="cardComments">
               Comments:{post.data.num_comments}

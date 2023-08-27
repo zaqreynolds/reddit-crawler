@@ -19,6 +19,7 @@ function App() {
     },
     palette: {
       primary: Grey,
+      // mode: "dark",
     },
   });
 

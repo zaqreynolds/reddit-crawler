@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "../components/displaySlice";
-import Card from "../components/PostCard";
+import PostCard from "../components/PostCard";
 import Comments from "../components/Comments";
 import Loading from "../components/Loading";
 
@@ -31,7 +31,7 @@ export const Details = () => {
   return (
     <div className="details">
       <div id="detailCard">
-        <Card post={details[0].data.children[0]} />
+        <PostCard post={details[0].data.children[0]} />
       </div>
       <div className="commentsContainer">
         <h2>Comments:</h2>
