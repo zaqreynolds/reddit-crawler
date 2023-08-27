@@ -1,4 +1,13 @@
-import { Box, Card, CardContent, ListItem, Typography } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  ListItem,
+  Typography,
+} from "@mui/material";
+import { orange } from "@mui/material/colors";
 import ReactPlayer from "react-player";
 import { NavLink } from "react-router-dom";
 
@@ -47,13 +56,17 @@ const PostCard = ({ post }) => {
       );
     }
   };
+
+  const theme = useTheme(); // Get the theme
+  const primaryLighterColor = theme.palette.primary.lighter; // Get the primary.lighter color
+
   return (
     <Card elevation={6}>
       <CardContent sx={{ textAlign: "center" }}>
         <Typography className="cardTitle">
           <b>{post.data.title}</b>
         </Typography>
-        <Typography className="cardAuthoer">
+        <Typography className="cardAuthoer" variant="caption">
           <em>posted by:</em> {post.data.author}
         </Typography>
 
@@ -63,11 +76,21 @@ const PostCard = ({ post }) => {
         >
           {mediaType(post)}
         </Box>
-        <NavLink to={`/${post.data.id}`} activeclassname="active">
-          <Typography className="cardComments">
-            Comments:{post.data.num_comments}
-          </Typography>
-        </NavLink>
+        <Button
+          variant="contained"
+          size="small"
+          style={{ backgroundColor: primaryLighterColor }}
+        >
+          <NavLink
+            to={`/${post.data.id}`}
+            activeclassname="active"
+            elevation={3}
+          >
+            <Typography className="cardComments">
+              Comments:{post.data.num_comments}
+            </Typography>
+          </NavLink>
+        </Button>
       </CardContent>
     </Card>
   );
