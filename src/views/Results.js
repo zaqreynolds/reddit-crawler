@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "../components/displaySlice";
 import { Link } from "react-router-dom";
@@ -6,8 +6,9 @@ import Search from "../components/Search";
 import Filter from "../components/Filter";
 import BottomNav from "../components/BottomNav";
 import Loading from "../components/Loading";
-import { Box, Container, List, ListItem } from "@mui/material";
+import { Box, Button, List } from "@mui/material";
 import PostCard from "../components/PostCard";
+import { Masonry } from "@mui/lab";
 
 export const Results = () => {
   const dispatch = useDispatch();
@@ -22,17 +23,23 @@ export const Results = () => {
 
   useEffect(() => {
     dispatch(fetchContent());
+
+    if (status === "loading") {
+      return <Loading />;
+    }
+
+    if (status === "failed") {
+      return <div>{error}</div>;
+    }
   }, [dispatch]);
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  const [viewMode, setViewMode] = useState("linear");
+  const toggleViewMode = () => {
+    setViewMode(viewMode === "linear" ? "masonry" : "linear");
+  };
 
-  if (status === "failed") {
-    return <div>{error}</div>;
-  }
   return (
-    <Container>
+    <Box sx={{ m: 0, justifyContent: "center" }}>
       <Box
         id="results"
         sx={{
@@ -40,18 +47,29 @@ export const Results = () => {
           flexDirection: "column",
         }}
       >
-        <Box id="searchFilter">
+        <Box id="searchFilter" sx={{ display: "flex" }}>
           <Search />
           <Filter />
+          <Button onClick={() => toggleViewMode()}>Toggle View</Button>
         </Box>
-
-        <List>
-          {posts.map((post) => (
-            <PostCard post={post} key={post.data.id} />
-          ))}
-        </List>
+        {/* THIS IS FOR LINEAR */}
+        {viewMode === "linear" && (
+          <List>
+            {posts.map((post) => (
+              <PostCard post={post} key={post.data.id} />
+            ))}
+          </List>
+        )}
+        {/* THIS IS FOR MASONRY */}
+        {viewMode === "masonry" && (
+          <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
+            {posts.map((post) => (
+              <PostCard post={post} key={post.data.id} sx={{ width: "100%" }} />
+            ))}
+          </Masonry>
+        )}
       </Box>
       <BottomNav />
-    </Container>
+    </Box>
   );
 };

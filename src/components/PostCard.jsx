@@ -49,7 +49,7 @@ const PostCard = ({ post }) => {
   };
   return (
     <ListItem sx={{ p: 0, maxWidth: "95vw", justifyContent: "center" }}>
-      <Card elevation={6} sx={{ my: 2 }}>
+      <Card elevation={6}>
         <CardContent sx={{ textAlign: "center" }}>
           <Typography className="cardTitle">
             <b>{post.data.title}</b>
