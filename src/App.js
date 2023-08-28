@@ -20,6 +20,7 @@ function App() {
     palette: {
       primary: {
         main: Grey[900],
+        medium: Grey[600],
         lighter: Grey[300],
       },
     },

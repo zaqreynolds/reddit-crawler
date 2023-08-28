@@ -85,6 +85,7 @@ const displaySlice = createSlice({
     filter: "hot",
     searchString: "",
     details: {},
+    viewMode: "linear",
   },
   reducers: {
     incrementPageCount: (state) => {
@@ -101,6 +102,9 @@ const displaySlice = createSlice({
     },
     setSearchString: (state, action) => {
       state.searchString = action.payload;
+    },
+    toggleViewMode: (state) => {
+      state.viewMode = state.viewMode === "linear" ? "masonry" : "linear";
     },
   },
   extraReducers: (builder) => {
@@ -171,4 +175,5 @@ export const {
   resetPageCount,
   selectFilter,
   setSearchString,
+  toggleViewMode,
 } = displaySlice.actions;

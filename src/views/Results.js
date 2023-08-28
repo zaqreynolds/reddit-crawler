@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "../components/displaySlice";
-import Search from "../components/Search";
-import Filter from "../components/Filter";
 import BottomNav from "../components/BottomNav";
 import Loading from "../components/Loading";
-import { Box, Button, List, ListItem } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 import PostCard from "../components/PostCard";
 import { Masonry } from "@mui/lab";
-import { grey } from "@mui/material/colors";
 
 export const Results = () => {
   const dispatch = useDispatch();
+  const viewMode = useSelector((state) => state.content.viewMode);
+  console.log("view", viewMode);
+
   const posts = useSelector((state) => {
     if (state.content.data?.data) {
       return state.content.data.data.children;
@@ -33,10 +33,10 @@ export const Results = () => {
     }
   }, [dispatch]);
 
-  const [viewMode, setViewMode] = useState("linear");
-  const toggleViewMode = () => {
-    setViewMode(viewMode === "linear" ? "masonry" : "linear");
-  };
+  // const [viewMode, setViewMode] = useState("linear");
+  // const toggleViewMode = () => {
+  //   setViewMode(viewMode === "linear" ? "masonry" : "linear");
+  // };
 
   return (
     <Box id="what" sx={{ m: 0, justifyContent: "center" }}>
@@ -50,19 +50,22 @@ export const Results = () => {
           p: 0,
         }}
       >
-        <Box id="searchFilter" sx={{ display: "flex" }}>
-          <Search />
-          <Filter />
+        {/* <Box  sx={{ display: "flex" }}>
           <Button onClick={() => toggleViewMode()}>Toggle View</Button>
-        </Box>
+        </Box> */}
         {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
           <List sx={{ m: 0 }}>
             {posts.map((post) => (
               <ListItem
-                sx={{ maxWidth: "95svw", justifyContent: "center", px: 0 }}
+                sx={{
+                  maxWidth: "40rem",
+                  justifyContent: "center",
+                  px: 0,
+                }}
+                key={post.data.id}
               >
-                <PostCard post={post} key={post.data.id} />
+                <PostCard post={post} />
               </ListItem>
             ))}
           </List>

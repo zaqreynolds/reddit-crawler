@@ -4,15 +4,15 @@ import {
   Button,
   Card,
   CardContent,
-  ListItem,
+  Link,
   Typography,
 } from "@mui/material";
-import { orange } from "@mui/material/colors";
 import ReactPlayer from "react-player";
 import { NavLink } from "react-router-dom";
 
 const PostCard = ({ post }) => {
   const mediaType = (post) => {
+    // console.log(post.data);
     if (post.data.post_hint === "image") {
       return (
         <img
@@ -44,25 +44,48 @@ const PostCard = ({ post }) => {
       );
     } else if (post.data.thumbnail === "nsfw") {
       return (
-        <a className="cardLink" href={post.data.url}>
+        <Link className="cardLink" href={post.data.url}>
           NSFW
-        </a>
+        </Link>
       );
     } else {
       return (
-        <a className="cardLink" href={post.data.url}>
-          Click for More!
-        </a>
+        <Box>
+          <Typography>{post.data.selftext}</Typography>
+          {post.data.preview && post.data.preview.images && (
+            <img
+              className="cardImage2"
+              src={post.data.preview.images[0].resolutions[2].url}
+              alt=""
+              style={{ maxWidth: "100%" }}
+            />
+          )}
+          {post.data.thumbnail && (
+            <img href={post.data.url} src={post.data.thumbnail} alt="" />
+          )}
+          <Button variant="outlined" size="small">
+            <Link className="cardLink" href={post.data.url}>
+              Click for More!
+            </Link>
+          </Button>
+        </Box>
       );
     }
   };
 
   const theme = useTheme(); // Get the theme
-  const primaryLighterColor = theme.palette.primary.lighter; // Get the primary.lighter color
+  const primaryMediumColor = theme.palette.primary.medium; // Get the primary.lighter color
 
   return (
     <Card elevation={6}>
-      <CardContent sx={{ textAlign: "center" }}>
+      <CardContent
+        sx={{
+          textAlign: "center",
+          "&:last-child": {
+            pb: 1,
+          },
+        }}
+      >
         <Typography className="cardTitle">
           <b>{post.data.title}</b>
         </Typography>
@@ -79,15 +102,16 @@ const PostCard = ({ post }) => {
         <Button
           variant="contained"
           size="small"
-          style={{ backgroundColor: primaryLighterColor }}
+          sx={{ backgroundColor: primaryMediumColor, m: 1 }}
         >
           <NavLink
             to={`/${post.data.id}`}
             activeclassname="active"
-            elevation={3}
+            elevation={6}
+            style={{ textDecoration: "none" }}
           >
-            <Typography className="cardComments">
-              Comments:{post.data.num_comments}
+            <Typography className="cardComments" sx={{ color: "white" }}>
+              Comments: {post.data.num_comments}
             </Typography>
           </NavLink>
         </Button>
