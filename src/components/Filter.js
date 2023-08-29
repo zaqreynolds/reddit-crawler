@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
 
@@ -14,6 +14,8 @@ const Filter = () => {
       return "block";
     }
   };
+
+  const [filter, setFilter] = useState("");
   const handleFilterChange = (e) => {
     dispatch(selectFilter(e.target.value));
 
@@ -42,15 +44,14 @@ const Filter = () => {
           Comments
         </option>
       </select> */}
-      <FormControl variant="standard" fullWidth>
-        <InputLabel id="filter-label" sx={{ color: primaryLighterColor }}>
-          Filter
-        </InputLabel>
+      <FormControl sx={{ m: 1, minWidth: 80 }} size="small">
+        <InputLabel id="filter-label">Filter</InputLabel>
         <Select
           labelId="filter-label"
           id="filter"
           label="Filter"
-          sx={{ color: primaryLighterColor }}
+          autoWidth
+          value={filter}
           size="small"
         >
           <MenuItem value="hot">Hot</MenuItem>
