@@ -60,12 +60,18 @@ const PostCard = ({ post }) => {
               style={{ maxWidth: "100%" }}
             />
           )}
-          {post.data.thumbnail && (
-            <img href={post.data.url} src={post.data.thumbnail} alt="" />
-          )}
-          <Button variant="outlined" size="small">
-            <Link className="cardLink" href={post.data.url}>
-              Click for More!
+
+          <Button size="small" color="inherit">
+            <Link className="cardLink" href={post.data.url} color="inherit">
+              {post.data.thumbnail && (
+                <img
+                  href={post.data.url}
+                  src={post.data.thumbnail}
+                  alt=""
+                  className="thumbnail"
+                />
+              )}
+              {!post.data.thumbnail && <Typography>Click for More!</Typography>}
             </Link>
           </Button>
         </Box>
@@ -73,8 +79,8 @@ const PostCard = ({ post }) => {
     }
   };
 
-  const theme = useTheme(); // Get the theme
-  const primaryMediumColor = theme.palette.primary.medium; // Get the primary.lighter color
+  const theme = useTheme();
+  const primaryMediumColor = theme.palette.primary.medium;
 
   return (
     <Card elevation={6}>

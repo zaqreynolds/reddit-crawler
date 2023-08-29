@@ -5,7 +5,7 @@ import ViewButton from "./ViewButton";
 
 const Header = () => {
   return (
-    <AppBar position="static" elevation={16} sx={{ mb: 4 }}>
+    <AppBar position="fixed" elevation={16} sx={{ mb: 4 }}>
       <Toolbar sx={{ display: "flex", alignItems: "center" }}>
         <Typography variant="h6">
           <b>Reddit Crawler</b>

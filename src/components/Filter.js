@@ -1,3 +1,5 @@
+import { useTheme } from "@emotion/react";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
@@ -22,9 +24,13 @@ const Filter = () => {
     }
   };
 
+  const theme = useTheme();
+  const primaryLighterColor = theme.palette.primary.lighter;
+
   return (
-    <div id="filter">
-      <div style={{ color: "white" }}>Sort By: </div>
+    <>
+      {/* // <Box id="filter" sx={{}}> */}
+      {/* <div style={{ color: "white" }}>Sort By: </div>
       <select onChange={handleFilterChange} style={{}}>
         <option value="hot">Hot</option>
         <option value="new">New</option>
@@ -35,8 +41,31 @@ const Filter = () => {
         <option value="comments" style={{ display: hideOption() }}>
           Comments
         </option>
-      </select>
-    </div>
+      </select> */}
+      <FormControl variant="standard" fullWidth>
+        <InputLabel id="filter-label" sx={{ color: primaryLighterColor }}>
+          Filter
+        </InputLabel>
+        <Select
+          labelId="filter-label"
+          id="filter"
+          label="Filter"
+          sx={{ color: primaryLighterColor }}
+          size="small"
+        >
+          <MenuItem value="hot">Hot</MenuItem>
+          <MenuItem value="new">New</MenuItem>
+          <MenuItem value="top">Top</MenuItem>
+          <MenuItem value="relevance" style={{ display: hideOption() }}>
+            Relevance{" "}
+          </MenuItem>
+          <MenuItem value="comments" style={{ display: hideOption() }}>
+            Comments
+          </MenuItem>
+        </Select>
+      </FormControl>
+      {/* // </Box> */}
+    </>
   );
 };
 

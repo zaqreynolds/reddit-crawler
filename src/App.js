@@ -23,6 +23,7 @@ function App() {
         medium: Grey[600],
         lighter: Grey[300],
       },
+      mode: "dark",
     },
   });
 

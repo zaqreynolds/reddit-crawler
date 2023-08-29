@@ -59,7 +59,7 @@ export const Results = () => {
             {posts.map((post) => (
               <ListItem
                 sx={{
-                  maxWidth: "40rem",
+                  width: "40rem",
                   justifyContent: "center",
                   px: 0,
                 }}
