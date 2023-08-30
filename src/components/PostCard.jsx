@@ -83,7 +83,7 @@ const PostCard = ({ post }) => {
   const primaryMediumColor = theme.palette.primary.medium;
 
   return (
-    <Card elevation={6}>
+    <Card elevation={20}>
       <CardContent
         sx={{
           textAlign: "center",
