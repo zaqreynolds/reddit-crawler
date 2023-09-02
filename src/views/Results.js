@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent } from "../components/displaySlice";
+import { fetchContent, setViewMode } from "../components/displaySlice";
 import BottomNav from "../components/BottomNav";
 import Loading from "../components/Loading";
 import { Box, List, ListItem } from "@mui/material";
@@ -10,7 +10,7 @@ import { Masonry } from "@mui/lab";
 export const Results = () => {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.content.viewMode);
-  console.log("view", viewMode);
+  const isMobile = useSelector((state) => state.content.isMobile);
 
   const posts = useSelector((state) => {
     if (state.content.data?.data) {
@@ -20,7 +20,7 @@ export const Results = () => {
   });
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
-
+  console.log(status);
   useEffect(() => {
     dispatch(fetchContent());
 
@@ -33,11 +33,13 @@ export const Results = () => {
     }
   }, [dispatch]);
 
-  // const [viewMode, setViewMode] = useState("linear");
-  // const toggleViewMode = () => {
-  //   setViewMode(viewMode === "linear" ? "masonry" : "linear");
-  // };
-
+  useEffect(() => {
+    if (isMobile) {
+      dispatch(setViewMode("masonry"));
+    } else {
+      dispatch(setViewMode("linear"));
+    }
+  }, [isMobile, dispatch]);
   return (
     <Box id="what" sx={{ m: 0, justifyContent: "center" }}>
       <Box
@@ -50,16 +52,12 @@ export const Results = () => {
           p: 0,
         }}
       >
-        {/* <Box  sx={{ display: "flex" }}>
-          <Button onClick={() => toggleViewMode()}>Toggle View</Button>
-        </Box> */}
         {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
           <List sx={{ m: 0 }}>
             {posts.map((post) => (
               <ListItem
                 sx={{
-                  width: "40rem",
                   justifyContent: "center",
                   px: 0,
                 }}

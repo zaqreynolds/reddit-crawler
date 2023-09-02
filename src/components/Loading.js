@@ -1,9 +1,14 @@
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
+import React, { useState } from "react";
+
 const Loading = () => {
+  console.log("hello");
   return (
-    <div className="logoContainer">
-      <img className="loadingImage" src="loading.png" alt="Loading symbol" />
-      <p className="loadingText">LOADING...</p>
-    </div>
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 

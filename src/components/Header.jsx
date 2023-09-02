@@ -1,9 +1,12 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 import Filter from "./Filter";
 import Search from "./Search";
 import ViewButton from "./ViewButton";
 
 const Header = () => {
+  const isMobile = useSelector((state) => state.content.isMobile);
+
   return (
     <AppBar position="fixed" elevation={24} sx={{ mb: 4 }}>
       <Toolbar sx={{ display: "flex", alignItems: "center" }}>
@@ -15,7 +18,7 @@ const Header = () => {
         <Box sx={{ flex: 1 }} />
         <Filter />
         <Box sx={{ flex: 1 }} />
-        <ViewButton />
+        {!isMobile && <ViewButton />}
       </Toolbar>
     </AppBar>
   );

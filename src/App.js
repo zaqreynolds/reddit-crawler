@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Results } from "./views/Results";
 import { Route, Routes } from "react-router-dom";
 import { Details } from "./views/Details";
@@ -10,12 +10,20 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Grey from "@mui/material/colors/grey";
+import { useDispatch } from "react-redux";
+import { setIsMobile } from "./components/displaySlice";
 
 function App() {
-  const isSmallViewport = useMediaQuery("(max-width:600px)");
+  const dispatch = useDispatch();
+  const isMobie = useMediaQuery("(max-width:600px)");
+
+  useEffect(() => {
+    dispatch(setIsMobile(isMobie));
+  }, [dispatch, isMobie]);
+
   const theme = createTheme({
     typography: {
-      fontSize: isSmallViewport ? 12 : 14,
+      fontSize: isMobie ? 12 : 14,
     },
     palette: {
       primary: {

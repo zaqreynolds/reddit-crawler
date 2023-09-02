@@ -85,7 +85,8 @@ const displaySlice = createSlice({
     filter: "hot",
     searchString: "",
     details: {},
-    viewMode: "linear",
+    viewMode: "masonry",
+    isMobile: false,
   },
   reducers: {
     incrementPageCount: (state) => {
@@ -105,6 +106,12 @@ const displaySlice = createSlice({
     },
     toggleViewMode: (state) => {
       state.viewMode = state.viewMode === "linear" ? "masonry" : "linear";
+    },
+    setViewMode: (state, action) => {
+      state.viewMode = action.payload;
+    },
+    setIsMobile: (state, action) => {
+      state.isMobile = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -175,5 +182,7 @@ export const {
   resetPageCount,
   selectFilter,
   setSearchString,
+  setIsMobile,
+  setViewMode,
   toggleViewMode,
 } = displaySlice.actions;

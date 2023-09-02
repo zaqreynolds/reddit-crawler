@@ -8,9 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import FatDivider from "./FatDivider";
 
 const PostCard = ({ post }) => {
+  const viewMode = useSelector((state) => state.content.viewMode);
+  const isMobile = useSelector((state) => state.content.viewMode);
+
   const mediaType = (post) => {
     // console.log(post.data);
     if (post.data.post_hint === "image") {
@@ -83,7 +88,10 @@ const PostCard = ({ post }) => {
   const primaryMediumColor = theme.palette.primary.medium;
 
   return (
-    <Card elevation={20}>
+    <Card
+      elevation={20}
+      sx={{ width: viewMode === "linear" ? "60%" : undefined }}
+    >
       <CardContent
         sx={{
           textAlign: "center",
@@ -95,6 +103,7 @@ const PostCard = ({ post }) => {
         <Typography className="cardTitle">
           <b>{post.data.title}</b>
         </Typography>
+        <FatDivider />
         <Typography className="cardAuthoer" variant="caption">
           <em>posted by:</em> {post.data.author}
         </Typography>
