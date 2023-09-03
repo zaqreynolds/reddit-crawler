@@ -27,24 +27,10 @@ const Filter = () => {
   };
 
   const theme = useTheme();
-  const primaryLighterColor = theme.palette.primary.lighter;
 
   return (
     <>
-      {/* // <Box id="filter" sx={{}}> */}
-      {/* <div style={{ color: "white" }}>Sort By: </div>
-      <select onChange={handleFilterChange} style={{}}>
-        <option value="hot">Hot</option>
-        <option value="new">New</option>
-        <option value="top">Top</option>
-        <option value="relevance" style={{ display: hideOption() }}>
-          Relevance
-        </option>
-        <option value="comments" style={{ display: hideOption() }}>
-          Comments
-        </option>
-      </select> */}
-      <FormControl sx={{ m: 1, minWidth: 80 }} size="small">
+      <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
         <InputLabel id="filter-label">Filter</InputLabel>
         <Select
           labelId="filter-label"
@@ -53,6 +39,7 @@ const Filter = () => {
           autoWidth
           value={filter}
           size="small"
+          onChange={handleFilterChange}
         >
           <MenuItem value="hot">Hot</MenuItem>
           <MenuItem value="new">New</MenuItem>
@@ -65,7 +52,6 @@ const Filter = () => {
           </MenuItem>
         </Select>
       </FormControl>
-      {/* // </Box> */}
     </>
   );
 };

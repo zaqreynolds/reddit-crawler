@@ -1,14 +1,19 @@
-import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 
 const Loading = () => {
   console.log("hello");
   return (
-    <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
+      }}
     >
-      <CircularProgress color="inherit" />
-    </Backdrop>
+      <CircularProgress />
+    </Box>
   );
 };
 

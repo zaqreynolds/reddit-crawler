@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import Comments from "./Comments";
@@ -10,7 +11,7 @@ const Comment = ({ comment }) => {
   const buttonClass = comment.data.replies ? "withReplies" : "noReplies";
   return (
     <li>
-      {comment.data.body}{" "}
+      <Typography>{comment.data.body} </Typography>
       <button className={buttonClass} onClick={toggle}>
         {open ? "close" : "replies"}
       </button>

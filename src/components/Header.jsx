@@ -15,9 +15,7 @@ const Header = () => {
         </Typography>
         <Box sx={{ flex: 1 }} />
         <Search />
-        <Box sx={{ flex: 1 }} />
         <Filter />
-        <Box sx={{ flex: 1 }} />
         {!isMobile && <ViewButton />}
       </Toolbar>
     </AppBar>

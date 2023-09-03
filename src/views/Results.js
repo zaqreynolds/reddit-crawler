@@ -23,14 +23,6 @@ export const Results = () => {
   console.log(status);
   useEffect(() => {
     dispatch(fetchContent());
-
-    if (status === "loading") {
-      return <Loading />;
-    }
-
-    if (status === "failed") {
-      return <div>{error}</div>;
-    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,6 +32,14 @@ export const Results = () => {
       dispatch(setViewMode("linear"));
     }
   }, [isMobile, dispatch]);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "failed") {
+    return <div>{error}</div>;
+  }
   return (
     <Box id="what" sx={{ m: 0, justifyContent: "center" }}>
       <Box
