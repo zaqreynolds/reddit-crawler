@@ -1,3 +1,4 @@
+import { Box, Button, useTheme } from "@mui/material";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nextList, prevList } from "./displaySlice";
@@ -5,6 +6,7 @@ import { incrementPageCount, decrementPageCount } from "./displaySlice";
 
 const BottomNav = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const beforeState = useSelector(({ content }) => {
     return content.data?.data?.before;
@@ -37,14 +39,44 @@ const BottomNav = () => {
   };
 
   return (
-    <div id="bottomNav">
-      <button id="backButton" onClick={clickBack} disabled={hideBack()}>
+    <Box
+      id="bottomNav"
+      sx={{
+        position: "fixed",
+        zIndex: "5",
+        width: "100%",
+        height: "30px",
+        bottom: "0",
+        display: "flex",
+        backgroundColor: theme.palette.primary.lighter,
+        paddingTop: "5px",
+        justifyContent: "center",
+        gap: "10px",
+        opacity: "0.95",
+      }}
+      // elevation={16}
+    >
+      <Button
+        id="backButton"
+        variant="contained"
+        color="inherit"
+        size="small"
+        onClick={clickBack}
+        disabled={hideBack()}
+      >
         Back
-      </button>
-      <button id="nextButton" onClick={clickNext} disabled={hideNext()}>
+      </Button>
+      <Button
+        id="nextButton"
+        variant="contained"
+        color="inherit"
+        size="small"
+        onClick={clickNext}
+        disabled={hideNext()}
+      >
         Next
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 

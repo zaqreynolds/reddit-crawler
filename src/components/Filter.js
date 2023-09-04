@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
 
@@ -17,25 +17,31 @@ const Filter = () => {
 
   const [filter, setFilter] = useState("");
   const handleFilterChange = (e) => {
-    dispatch(selectFilter(e.target.value));
+    setFilter(e.target.value);
+  };
 
+  useEffect(() => {
     if (state) {
       dispatch(searchReddit());
     } else {
       dispatch(fetchContent());
     }
-  };
+  }, [filter]);
 
   const theme = useTheme();
 
   return (
     <>
-      <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
-        <InputLabel id="filter-label">Filter</InputLabel>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small" variant="filled">
+        <InputLabel
+          id="filter-label"
+          sx={{ color: theme.palette.primary.lighter }}
+        >
+          Filter by...
+        </InputLabel>
         <Select
           labelId="filter-label"
           id="filter"
-          label="Filter"
           autoWidth
           value={filter}
           size="small"

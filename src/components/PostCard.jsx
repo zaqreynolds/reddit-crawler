@@ -9,12 +9,21 @@ import {
 } from "@mui/material";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
 
 const PostCard = ({ post }) => {
   const viewMode = useSelector((state) => state.content.viewMode);
   const isMobile = useSelector((state) => state.content.viewMode);
+  const islocation = useLocation();
+  const isAtIndex = islocation.pathname === "/";
+  const selfTextTruncate = (post) => {
+    if (isAtIndex && post.data.selftext.length > 1000) {
+      return post.data.selftext.substring(0, 1000) + "...";
+    } else {
+      return post.data.selftext;
+    }
+  };
 
   const mediaType = (post) => {
     // console.log(post.data);
@@ -56,15 +65,17 @@ const PostCard = ({ post }) => {
     } else {
       return (
         <Box>
-          <Typography>{post.data.selftext}</Typography>
-          {post.data.preview && post.data.preview.images && (
-            <img
-              className="cardImage2"
-              src={post.data.preview.images[0].resolutions[2].url}
-              alt=""
-              style={{ maxWidth: "100%" }}
-            />
-          )}
+          <Typography>{selfTextTruncate(post)}</Typography>
+          {post.data.preview &&
+            post.data.preview.images &&
+            post.data.preview.images[0].resolutions[0].url && (
+              <img
+                className="cardImage2"
+                src={post.data.preview.images[0].resolutions[0].url}
+                alt=""
+                style={{ maxWidth: "100%" }}
+              />
+            )}
 
           <Button size="small" color="inherit">
             <Link className="cardLink" href={post.data.url} color="inherit">
@@ -125,7 +136,11 @@ const PostCard = ({ post }) => {
             elevation={6}
             style={{ textDecoration: "none" }}
           >
-            <Typography className="cardComments" sx={{ color: "white" }}>
+            <Typography
+              className="cardComments"
+              sx={{ color: "white" }}
+              elevation={10}
+            >
               Comments: {post.data.num_comments}
             </Typography>
           </NavLink>
