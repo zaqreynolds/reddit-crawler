@@ -1,36 +1,35 @@
-import React from "react";
+import { Box, Button, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebounce } from "../utils/useDebounce";
 import { searchReddit, setSearchString } from "./displaySlice";
 
 const Search = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
   const searchString = useSelector((state) => state.content.searchString);
 
-  const handleInputChange = (e) => {
-    dispatch(setSearchString(e.target.value));
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(searchReddit());
-  };
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    dispatch(setSearchString(debouncedSearchQuery));
+    dispatch(searchReddit(searchString));
+  }, [debouncedSearchQuery]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="searchInput">
-        Search:
-        <input
-          type="text"
-          id="searchInput"
-          name="searchInput"
-          value={searchString}
-          onChange={handleInputChange}
-        ></input>
-      </label>
-      <button id="searchSubmit" type="submit">
-        Submit
-      </button>
-    </form>
+    <Box>
+      <TextField
+        label="Search"
+        variant="standard"
+        size="small"
+        value={searchQuery}
+        onChange={handleSearchQueryChange}
+      />
+    </Box>
   );
 };
 

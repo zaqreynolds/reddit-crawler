@@ -32,7 +32,7 @@ const Filter = () => {
 
   return (
     <>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small" variant="filled">
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <InputLabel
           id="filter-label"
           sx={{ color: theme.palette.primary.lighter }}
@@ -41,6 +41,7 @@ const Filter = () => {
         </InputLabel>
         <Select
           labelId="filter-label"
+          label="Filter by..."
           id="filter"
           autoWidth
           value={filter}
