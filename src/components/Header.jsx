@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="fixed" elevation={24} sx={{ mb: 4 }}>
+    <AppBar position="fixed" elevation={24}>
       <Toolbar sx={{ display: "flex", alignItems: "center" }}>
         {isHome()}
         <Box sx={{ flex: 1 }} />

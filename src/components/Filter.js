@@ -1,8 +1,8 @@
 import { useTheme } from "@emotion/react";
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
+import { fetchContent, searchReddit } from "./displaySlice";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,10 @@ const Filter = () => {
 
   return (
     <>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <FormControl
+        sx={{ m: 1, minWidth: 120, marginLeft: 5, marginRight: 2 }}
+        size="small"
+      >
         <InputLabel
           id="filter-label"
           sx={{ color: theme.palette.primary.lighter }}
