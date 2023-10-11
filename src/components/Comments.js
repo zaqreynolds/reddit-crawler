@@ -13,7 +13,9 @@ const Comments = ({ comments, isFirst }) => {
   const theme = useTheme();
 
   return (
-    <List>
+    <List
+      sx={{ paddingBottom: isFirst ? 1 : 0, paddingRight: isFirst ? 1 : 0 }}
+    >
       {comments.map(
         (comment) =>
           comment.kind !== "more" && (

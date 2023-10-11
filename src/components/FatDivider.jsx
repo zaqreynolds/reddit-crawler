@@ -4,10 +4,12 @@ import { Divider } from "@mui/material";
 const FatDivider = () => {
   return (
     <>
-      <Divider />
-      <Divider />
-      <Divider />
-      <Divider />
+      <Divider
+        sx={{
+          borderWidth: "2.5px",
+          borderRadius: "10px",
+        }}
+      />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import React, { forwardRef } from "react";
 import { useTheme } from "@emotion/react";
 import {
   Box,
@@ -11,10 +12,10 @@ import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
-
-const PostCard = ({ post }) => {
+const PostCard = forwardRef((props, ref) => {
+  const { post } = props;
   const viewMode = useSelector((state) => state.content.viewMode);
-  const isMobile = useSelector((state) => state.content.viewMode);
+  // const isMobile = useSelector((state) => state.content.viewMode);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
   const selfTextTruncate = (post) => {
@@ -122,6 +123,7 @@ const PostCard = ({ post }) => {
         <Box
           className="cardMedia"
           sx={{ display: "flex", justifyContent: "center" }}
+          ref={ref}
         >
           {mediaType(post)}
         </Box>
@@ -148,6 +150,6 @@ const PostCard = ({ post }) => {
       </CardContent>
     </Card>
   );
-};
+});
 
 export default PostCard;

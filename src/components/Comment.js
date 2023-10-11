@@ -10,7 +10,9 @@ const Comment = ({ comment, isFirst }) => {
     setOpen(!open);
   };
   const theme = useTheme();
-  const hasReplies = comment.data?.replies?.data?.children?.length;
+  const hasReplies =
+    comment.data.replies?.data?.children.length &&
+    comment.data.replies?.data?.children[0].kind !== "more";
   return (
     <ListItem
       sx={{
@@ -18,36 +20,35 @@ const Comment = ({ comment, isFirst }) => {
         flexDirection: "column",
         alignItems: "flex-start",
         width: "fit-content",
-        paddingBottom: 0,
+        paddingBottom: isFirst ? 1 : 0,
+        paddingRight: isFirst ? 1 : 0,
       }}
     >
       <Box>
         <Typography sx={{ color: theme.palette.primary.main }}>
           {isFirst ? null : "•"} {comment.data.body}
-          {hasReplies && (
-            <>
-              <Button
-                onClick={toggle}
-                size="small"
-                variant="outlined"
-                sx={{ marginLeft: "0.3rem" }}
-              >
-                {open ? "close" : "replies"}
-              </Button>{" "}
-              {open ? <Box sx={{ flex: 1 }} /> : null}
-            </>
-          )}
         </Typography>
+        {hasReplies && (
+          <>
+            <Button
+              onClick={toggle}
+              size="small"
+              variant="outlined"
+              sx={{ marginLeft: "0.3rem" }}
+            >
+              {open ? "close" : "replies"}
+            </Button>{" "}
+            {open ? <Box sx={{ flex: 1 }} /> : null}
+          </>
+        )}
       </Box>
 
-      {comment.data?.replies?.data?.children?.length &&
-        comment.data.replies.kind !== "more" &&
-        open && (
-          <Comments
-            comments={comment.data.replies?.data?.children}
-            isFirst={false}
-          />
-        )}
+      {hasReplies && comment.data.replies.kind !== "more" && open && (
+        <Comments
+          comments={comment.data.replies?.data?.children}
+          isFirst={false}
+        />
+      )}
     </ListItem>
   );
 };

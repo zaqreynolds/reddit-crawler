@@ -12,11 +12,14 @@ const Header = () => {
   const theme = useTheme();
 
   const isAtIndex = islocation.pathname === "/";
+
+  const ResponsiveTitle = () => (isMobile ? "R.C." : "Reddit Crawler");
+
   const isHome = () => {
     if (isAtIndex) {
       return (
         <Typography variant="h6" sx={{ color: theme.palette.primary.lighter }}>
-          <b>Reddit Crawler</b>
+          <b>{ResponsiveTitle()}</b>
         </Typography>
       );
     } else {
@@ -26,7 +29,7 @@ const Header = () => {
             variant="h6"
             sx={{ color: theme.palette.primary.lighter }}
           >
-            <b>Reddit Crawler</b>
+            <b>{ResponsiveTitle()}</b>
           </Typography>
         </Link>
       );

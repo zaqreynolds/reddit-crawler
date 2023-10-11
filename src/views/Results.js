@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, setViewMode } from "../components/displaySlice";
+import {
+  fetchContent,
+  nextList,
+  setViewMode,
+} from "../components/displaySlice";
 import BottomNav from "../components/BottomNav";
 import Loading from "../components/Loading";
 import { Box, List, ListItem } from "@mui/material";
@@ -11,6 +15,7 @@ export const Results = () => {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.content.viewMode);
   const isMobile = useSelector((state) => state.content.isMobile);
+  const lastPostRef = useRef(null);
 
   const posts = useSelector((state) => {
     if (state.content.data?.data) {
@@ -20,10 +25,12 @@ export const Results = () => {
   });
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
-  console.log(status);
+
+  const after = useSelector((state) => state.content.data?.data?.after);
+
   useEffect(() => {
     dispatch(fetchContent());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (isMobile) {
@@ -33,6 +40,40 @@ export const Results = () => {
     }
   }, [isMobile, dispatch]);
 
+  //Infinite Scrolling :)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // If the last post is visible on viewport
+        if (
+          entries[0].isIntersecting &&
+          status !== "loading" &&
+          lastPostRef.current
+        ) {
+          dispatch(nextList(after)); // Fetch more data when the last post is visible
+        }
+      },
+      { threshold: 0.7 } // Observe when the this amount of the target is visible
+    );
+
+    // Unobserve current (this will unobserve the old last post if there was one)
+    if (lastPostRef.current) {
+      observer.unobserve(lastPostRef.current);
+    }
+
+    // Then, re-observe the last post
+    if (lastPostRef.current) {
+      observer.observe(lastPostRef.current);
+    }
+
+    // Cleanup observer on component unmount
+    return () => {
+      if (lastPostRef.current) {
+        observer.unobserve(lastPostRef.current);
+      }
+    };
+  }, [lastPostRef, dispatch, status, posts, after, viewMode]);
+
   if (status === "loading") {
     return <Loading />;
   }
@@ -40,8 +81,9 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
+
   return (
-    <Box id="what" sx={{ m: 0, justifyContent: "center" }}>
+    <Box sx={{ m: 0, justifyContent: "center" }}>
       <Box
         id="results"
         sx={{
@@ -55,13 +97,14 @@ export const Results = () => {
         {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
           <List sx={{ m: 0 }}>
-            {posts.map((post) => (
+            {posts.map((post, index) => (
               <ListItem
                 sx={{
                   justifyContent: "center",
                   px: 0,
                 }}
                 key={post.data.id}
+                ref={index === posts.length - 1 ? lastPostRef : null}
               >
                 <PostCard post={post} />
               </ListItem>
@@ -70,14 +113,23 @@ export const Results = () => {
         )}
         {/* THIS IS FOR MASONRY */}
         {viewMode === "masonry" && (
-          <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
-            {posts.map((post) => (
-              <PostCard post={post} key={post.data.id} sx={{ width: "100%" }} />
-            ))}
-          </Masonry>
+          <>
+            <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
+              {posts.map((post, index) => {
+                // console.log("Rendering post", post.data.id, "at index", index);
+                return (
+                  <PostCard
+                    post={post}
+                    key={post.data.id}
+                    sx={{ width: "100%" }}
+                    ref={index === posts.length - 1 ? lastPostRef : null}
+                  />
+                );
+              })}
+            </Masonry>
+          </>
         )}
       </Box>
-      <BottomNav />
     </Box>
   );
 };
