@@ -57,7 +57,6 @@ const BottomNav = () => {
         gap: "10px",
         opacity: "0.95",
       }}
-      // elevation={16}
     >
       <Button
         id="backButton"
