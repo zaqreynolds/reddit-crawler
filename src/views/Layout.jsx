@@ -5,14 +5,13 @@ import Header from "../components/Header";
 const todos = [
   "To Do:",
   "handle the multiple keys/IDs error",
-  "fix comments padding",
-  "fix post media get errors and maybe add a default image for no accessible content",
   "auto scoll to top on viewmode toggle and comments",
   "fix NavBar styling",
   "make NavBar responsive",
   "fix LOADING UX",
-  "add comment author",
-  "make comment bullet dynamic",
+  "look into posts expanding beyond card",
+  "fix if comment is deleted",
+  "knownIssues: posts written in markdown are not rendered properly",
 ];
 const Layout = () => {
   //console just for TODOs

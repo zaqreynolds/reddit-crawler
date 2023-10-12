@@ -1,12 +1,6 @@
-import {
-  Card,
-  Divider,
-  List,
-  ListSubheader,
-  Paper,
-  useTheme,
-} from "@mui/material";
+import { List, Paper, useTheme } from "@mui/material";
 import React, { Fragment } from "react";
+
 import Comment from "./Comment";
 
 const Comments = ({ comments, isFirst }) => {
@@ -14,7 +8,11 @@ const Comments = ({ comments, isFirst }) => {
 
   return (
     <List
-      sx={{ paddingBottom: isFirst ? 1 : 0, paddingRight: isFirst ? 1 : 0 }}
+      sx={{
+        paddingBottom: isFirst ? 1 : 0,
+        paddingRight: isFirst ? 1 : 0,
+        paddingTop: isFirst ? 1 : 0,
+      }}
     >
       {comments.map(
         (comment) =>

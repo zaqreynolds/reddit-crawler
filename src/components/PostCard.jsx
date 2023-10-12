@@ -1,11 +1,14 @@
 import React, { forwardRef } from "react";
 import { useTheme } from "@emotion/react";
+import ReactMarkdown from "react-markdown";
+import { formatForMarkdown } from "../utils/formatForMarkdown";
 import {
   Box,
   Button,
   Card,
   CardContent,
   Link,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import ReactPlayer from "react-player";
@@ -19,15 +22,16 @@ const PostCard = forwardRef((props, ref) => {
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
   const selfTextTruncate = (post) => {
+    console.log(post.data.selftext.length);
     if (isAtIndex && post.data.selftext.length > 1000) {
       return post.data.selftext.substring(0, 1000) + "...";
-    } else {
+    } else if (post.data.selftext.length > 500) {
       return post.data.selftext;
     }
   };
 
   const mediaType = (post) => {
-    // console.log(post.data);
+    console.log(post.data);
     if (post.data.post_hint === "image") {
       return (
         <img
@@ -66,30 +70,32 @@ const PostCard = forwardRef((props, ref) => {
     } else {
       return (
         <Box>
-          <Typography>{selfTextTruncate(post)}</Typography>
-          {post.data.preview &&
+          <ReactMarkdown>
+            {formatForMarkdown(selfTextTruncate(post))}
+          </ReactMarkdown>
+          {/* {post.data.preview &&
             post.data.preview.images &&
-            post.data.preview.images[0].resolutions[0].url && (
+            post.data.preview.images[0].source.url && (
               <img
                 className="cardImage2"
-                src={post.data.preview.images[0].resolutions[0].url}
+                src={post.data.preview.images[0].source.url}
                 alt=""
                 style={{ maxWidth: "100%" }}
               />
-            )}
+            )} */}
 
           <Button size="small" color="inherit">
-            <Link className="cardLink" href={post.data.url} color="inherit">
-              {post.data.thumbnail && (
-                <img
-                  href={post.data.url}
-                  src={post.data.thumbnail}
-                  alt=""
-                  className="thumbnail"
-                />
-              )}
-              {!post.data.thumbnail && <Typography>Click for More!</Typography>}
-            </Link>
+            <Tooltip
+              title="click to follow external link"
+              placement="right"
+              arrow
+            >
+              <Link className="cardLink" href={post.data.url} color="inherit">
+                {post.data.thumbnail && (
+                  <Typography>Click for More!</Typography>
+                )}
+              </Link>
+            </Tooltip>
           </Button>
         </Box>
       );
@@ -120,11 +126,7 @@ const PostCard = forwardRef((props, ref) => {
           <em>posted by:</em> {post.data.author}
         </Typography>
 
-        <Box
-          className="cardMedia"
-          sx={{ display: "flex", justifyContent: "center" }}
-          ref={ref}
-        >
+        <Box className="cardMedia" ref={ref}>
           {mediaType(post)}
         </Box>
         <Button
