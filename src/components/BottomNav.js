@@ -7,6 +7,7 @@ import { incrementPageCount, decrementPageCount } from "./displaySlice";
 const BottomNav = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const pageCount = useSelector((state) => state.content.pageCount);
 
   const beforeState = useSelector(({ content }) => {
     return content.data?.data?.before;
@@ -31,11 +32,13 @@ const BottomNav = () => {
   const clickBack = () => {
     dispatch(decrementPageCount());
     dispatch(prevList(beforeState));
+    console.log("page", pageCount);
   };
 
   const clickNext = () => {
     dispatch(incrementPageCount());
     dispatch(nextList(afterState));
+    console.log("page", pageCount);
   };
 
   return (

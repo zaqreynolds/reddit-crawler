@@ -22,7 +22,6 @@ const PostCard = forwardRef((props, ref) => {
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
   const selfTextTruncate = (post) => {
-    console.log(post.data.selftext.length);
     if (isAtIndex && post.data.selftext.length > 1000) {
       return post.data.selftext.substring(0, 1000) + "...";
     } else if (post.data.selftext.length > 500) {
@@ -31,7 +30,7 @@ const PostCard = forwardRef((props, ref) => {
   };
 
   const mediaType = (post) => {
-    console.log(post.data);
+    // console.log(post.data);
     if (post.data.post_hint === "image") {
       return (
         <img
@@ -90,9 +89,13 @@ const PostCard = forwardRef((props, ref) => {
               placement="right"
               arrow
             >
-              <Link className="cardLink" href={post.data.url} color="inherit">
+              <Link
+                className="cardLink"
+                href={post.data.url}
+                sx={{ color: "teal" }}
+              >
                 {post.data.thumbnail && (
-                  <Typography>Click for More!</Typography>
+                  <Typography>Click for original post</Typography>
                 )}
               </Link>
             </Tooltip>
