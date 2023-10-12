@@ -32,13 +32,11 @@ const BottomNav = () => {
   const clickBack = () => {
     dispatch(decrementPageCount());
     dispatch(prevList(beforeState));
-    console.log("page", pageCount);
   };
 
   const clickNext = () => {
     dispatch(incrementPageCount());
     dispatch(nextList(afterState));
-    console.log("page", pageCount);
   };
 
   return (

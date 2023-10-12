@@ -4,14 +4,12 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 const todos = [
   "To Do:",
-  "handle the multiple keys/IDs error",
   "auto scoll to top on viewmode toggle and comments",
   "fix NavBar styling",
   "make NavBar responsive",
   "fix LOADING UX",
-  "look into posts expanding beyond card",
   "fix if comment is deleted",
-  "knownIssues: posts written in markdown are not rendered properly",
+  "knownIssues: posts with markDown require more work for handling all edge cases",
 ];
 const Layout = () => {
   //console just for TODOs

@@ -155,6 +155,7 @@ const displaySlice = createSlice({
       .addCase(nextList.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data.data.children.push(...action.payload.data.children);
+        state.data.data.after = action.payload.data.after;
       })
       .addCase(nextList.rejected, (state, action) => {
         state.status = "failed";
