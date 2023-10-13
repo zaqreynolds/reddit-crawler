@@ -7,7 +7,7 @@ import {
   setViewMode,
 } from "../components/displaySlice";
 import Loading from "../components/Loading";
-import BottomNav from "../components/BottomNav";
+// import BottomNav from "../components/BottomNav";
 import { Box, List, ListItem } from "@mui/material";
 import PostCard from "../components/PostCard";
 import { Masonry } from "@mui/lab";
@@ -16,8 +16,11 @@ export const Results = () => {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.content.viewMode);
   const isMobile = useSelector((state) => state.content.isMobile);
-  const pageCount = useSelector((state) => state.content.pageCount);
-  const content = useSelector((state) => state.content);
+  const status = useSelector((state) => state.content.status);
+  const error = useSelector((state) => state.content.error);
+  const after = useSelector((state) => state.content.data?.data?.after);
+  // const pageCount = useSelector((state) => state.content.pageCount);
+  // const content = useSelector((state) => state.content);
   const lastPostRef = useRef(null);
 
   const posts = useSelector((state) => {
@@ -26,10 +29,6 @@ export const Results = () => {
     }
     return [];
   });
-  const status = useSelector((state) => state.content.status);
-  const error = useSelector((state) => state.content.error);
-
-  const after = useSelector((state) => state.content.data?.data?.after);
 
   useEffect(() => {
     dispatch(fetchContent());
@@ -45,37 +44,41 @@ export const Results = () => {
 
   //Infinite Scrolling :)
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // If the last post is visible on viewport
-        if (
-          entries[0].isIntersecting &&
-          status !== "loading" &&
-          lastPostRef.current
-        ) {
-          dispatch(nextList(after)); // Fetch more data when the last post is visible
-          dispatch(incrementPageCount());
-        }
-      },
-      { threshold: 0.7 } // Observe when the this amount of the target is visible
-    );
+    if (status === "succeeded") {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // If the last post is visible on viewport
+          if (
+            entries[0].isIntersecting &&
+            status !== "loading" &&
+            lastPostRef.current
+          ) {
+            dispatch(nextList(after)); // Fetch more data when the last post is visible
+            dispatch(incrementPageCount());
+          }
+        },
+        { threshold: 0.7 } // Observe when the this amount of the target is visible
+      );
 
-    // Unobserve current (this will unobserve the old last post if there was one)
-    if (lastPostRef.current) {
-      observer.unobserve(lastPostRef.current);
-    }
-
-    // Then, re-observe the last post
-    if (lastPostRef.current) {
-      observer.observe(lastPostRef.current);
-    }
-
-    // Cleanup observer on component unmount
-    return () => {
+      // Unobserve current (this will unobserve the old last post if there was one)
       if (lastPostRef.current) {
         observer.unobserve(lastPostRef.current);
       }
-    };
+
+      // Then, re-observe the last post
+      if (lastPostRef.current) {
+        observer.observe(lastPostRef.current);
+      }
+
+      // Cleanup observer on component unmount
+      return () => {
+        if (lastPostRef.current) {
+          observer.unobserve(lastPostRef.current);
+        }
+      };
+    } else {
+      return;
+    }
   }, [lastPostRef, dispatch, status, posts, after, viewMode]);
 
   if (status === "loading") {

@@ -153,9 +153,9 @@ const displaySlice = createSlice({
         state.status = "loading";
       })
       .addCase(nextList.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.data.data.children.push(...action.payload.data.children);
         state.data.data.after = action.payload.data.after;
+        state.status = "succeeded";
       })
       .addCase(nextList.rejected, (state, action) => {
         state.status = "failed";
