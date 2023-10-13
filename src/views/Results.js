@@ -81,9 +81,9 @@ export const Results = () => {
     }
   }, [lastPostRef, dispatch, status, posts, after, viewMode]);
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
 
   if (status === "failed") {
     return <div>{error}</div>;
@@ -116,10 +116,39 @@ export const Results = () => {
                 <PostCard post={post} />
               </ListItem>
             ))}
+            {status === "loading" && (
+              <>
+                <ListItem
+                  sx={{
+                    justifyContent: "center",
+                    px: 0,
+                  }}
+                >
+                  <Loading viewMode={viewMode} />
+                </ListItem>
+                <ListItem
+                  sx={{
+                    justifyContent: "center",
+                    px: 0,
+                  }}
+                >
+                  <Loading viewMode={viewMode} />
+                </ListItem>
+                <ListItem
+                  sx={{
+                    justifyContent: "center",
+                    px: 0,
+                  }}
+                >
+                  <Loading viewMode={viewMode} />
+                </ListItem>
+              </>
+            )}
           </List>
         )}
+
         {/* THIS IS FOR MASONRY */}
-        {viewMode === "masonry" && (
+        {viewMode === "masonry" && status !== "loading" && (
           <>
             <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
               {posts.map((post, index) => {
@@ -132,6 +161,11 @@ export const Results = () => {
                   />
                 );
               })}
+              {status === "loading" && (
+                <Box sx={{ width: "100%" }}>
+                  <Loading viewMode={viewMode} />
+                </Box>
+              )}
             </Masonry>
           </>
         )}
