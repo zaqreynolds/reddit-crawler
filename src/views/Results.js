@@ -19,8 +19,6 @@ export const Results = () => {
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
   const after = useSelector((state) => state.content.data?.data?.after);
-  // const pageCount = useSelector((state) => state.content.pageCount);
-  // const content = useSelector((state) => state.content);
   const lastPostRef = useRef(null);
 
   const posts = useSelector((state) => {
@@ -80,10 +78,6 @@ export const Results = () => {
       return;
     }
   }, [lastPostRef, dispatch, status, posts, after, viewMode]);
-
-  // if (status === "loading") {
-  //   return <Loading />;
-  // }
 
   if (status === "failed") {
     return <div>{error}</div>;

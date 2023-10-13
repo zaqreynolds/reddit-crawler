@@ -43,7 +43,7 @@ const Header = () => {
         <Box sx={{ flex: 1 }} />
         <Search />
         <Filter />
-        {!isMobile && <ViewButton />}
+        {!isMobile && isAtIndex && <ViewButton />}
       </Toolbar>
     </AppBar>
   );
