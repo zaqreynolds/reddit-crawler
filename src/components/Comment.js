@@ -1,23 +1,65 @@
+import { Box, Button, ListItem, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { formatForMarkdown } from "../utils/formatForMarkdown";
+import rehypeRaw from "rehype-raw";
 import Comments from "./Comments";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, isFirst }) => {
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
   };
-  const buttonClass = comment.data.replies ? "withReplies" : "noReplies";
+  const theme = useTheme();
+  const hasReplies =
+    comment.data.replies?.data?.children.length &&
+    comment.data.replies?.data?.children[0].kind !== "more";
+
   return (
-    <li>
-      {comment.data.body}{" "}
-      <button className={buttonClass} onClick={toggle}>
-        {open ? "close" : "replies"}
-      </button>
-      {comment.data?.replies?.data?.children?.length &&
-        comment.data.replies.kind !== "more" &&
-        open && <Comments comments={comment.data.replies?.data?.children} />}
-    </li>
+    <ListItem
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: "fit-content",
+        paddingBottom: isFirst ? 1 : 0,
+        paddingRight: isFirst ? 1 : 0,
+        paddingTop: isFirst ? 1 : 0,
+      }}
+    >
+      <Box>
+        <Typography sx={{ color: theme.palette.primary.main }}>
+          <b>{comment.data.author}</b>
+        </Typography>
+        <Box sx={{ color: theme.palette.primary.main }}>
+          {isFirst ? null : "•"}
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+            {formatForMarkdown(comment.data.body)}
+          </ReactMarkdown>
+          {hasReplies && (
+            <Box
+              sx={{
+                display: "inline-flex",
+                marginLeft: "0.3rem",
+              }}
+            >
+              <Button onClick={toggle} size="small" variant="outlined">
+                {open ? "close" : "replies"}
+              </Button>{" "}
+              {open ? <Box sx={{ flex: 1 }} /> : null}
+            </Box>
+          )}
+        </Box>
+      </Box>
+
+      {hasReplies && comment.data.replies.kind !== "more" && open && (
+        <Comments
+          comments={comment.data.replies?.data?.children}
+          isFirst={false}
+        />
+      )}
+    </ListItem>
   );
 };
 

@@ -85,6 +85,8 @@ const displaySlice = createSlice({
     filter: "hot",
     searchString: "",
     details: {},
+    viewMode: "masonry",
+    isMobile: false,
   },
   reducers: {
     incrementPageCount: (state) => {
@@ -101,6 +103,15 @@ const displaySlice = createSlice({
     },
     setSearchString: (state, action) => {
       state.searchString = action.payload;
+    },
+    toggleViewMode: (state) => {
+      state.viewMode = state.viewMode === "linear" ? "masonry" : "linear";
+    },
+    setViewMode: (state, action) => {
+      state.viewMode = action.payload;
+    },
+    setIsMobile: (state, action) => {
+      state.isMobile = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -142,8 +153,9 @@ const displaySlice = createSlice({
         state.status = "loading";
       })
       .addCase(nextList.fulfilled, (state, action) => {
+        state.data.data.children.push(...action.payload.data.children);
+        state.data.data.after = action.payload.data.after;
         state.status = "succeeded";
-        state.data = action.payload;
       })
       .addCase(nextList.rejected, (state, action) => {
         state.status = "failed";
@@ -171,4 +183,7 @@ export const {
   resetPageCount,
   selectFilter,
   setSearchString,
+  setIsMobile,
+  setViewMode,
+  toggleViewMode,
 } = displaySlice.actions;
