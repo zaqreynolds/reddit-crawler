@@ -15,7 +15,7 @@ const Layout = () => {
   //console just for TODOs
   console.table(todos);
   return (
-    <Box sx={{ backgroundColor: "primary.lighter" }}>
+    <Box sx={{ backgroundColor: "primary.lighter", minHeight: "100vh" }}>
       <Header />
       <Toolbar sx={{ mb: 2 }} />
       <Outlet />
