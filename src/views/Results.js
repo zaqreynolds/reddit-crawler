@@ -42,7 +42,7 @@ export const Results = () => {
 
   //Infinite Scrolling :)
   useEffect(() => {
-    if (status === "succeeded") {
+    if (lastPostRef.current && status === "succeeded") {
       const observer = new IntersectionObserver(
         (entries) => {
           // If the last post is visible on viewport
@@ -51,11 +51,12 @@ export const Results = () => {
             status !== "loading" &&
             lastPostRef.current
           ) {
+            console.log("Last post is in view!");
             dispatch(nextList(after)); // Fetch more data when the last post is visible
             dispatch(incrementPageCount());
           }
         },
-        { threshold: 0.7 } // Observe when the this amount of the target is visible
+        { threshold: viewMode === "linear" ? 0.4 : 0.9 } // Observe when the this amount of the target is visible
       );
 
       // Unobserve current (this will unobserve the old last post if there was one)
@@ -142,7 +143,7 @@ export const Results = () => {
         )}
 
         {/* THIS IS FOR MASONRY */}
-        {viewMode === "masonry" && status !== "loading" && (
+        {viewMode === "masonry" && (
           <>
             <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
               {posts.map((post, index) => {

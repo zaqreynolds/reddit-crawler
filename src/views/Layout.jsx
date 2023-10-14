@@ -9,6 +9,7 @@ const todos = [
   "make NavBar responsive",
   "fix LOADING UX",
   "fix if comment is deleted",
+  "fix filter component",
   "knownIssues: posts with markDown require more work for handling all edge cases",
 ];
 const Layout = () => {
