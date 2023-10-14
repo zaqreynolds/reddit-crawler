@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { useTheme } from "@emotion/react";
 import ReactMarkdown from "react-markdown";
 import { formatForMarkdown } from "../utils/formatForMarkdown";
@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
   Link,
   Tooltip,
   Typography,
@@ -15,12 +16,20 @@ import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
+import { Details } from "../views/Details";
+
 const PostCard = forwardRef((props, ref) => {
   const { post } = props;
   const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const clickOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
   const selfTextTruncate = (post) => {
     if (isAtIndex && post.data.selftext.length > 1000) {
       return post.data.selftext.substring(0, 1000) + "...";
@@ -136,23 +145,33 @@ const PostCard = forwardRef((props, ref) => {
           variant="contained"
           size="small"
           sx={{ backgroundColor: primaryMediumColor, m: 1 }}
+          onClick={() => clickOpen()}
         >
-          <NavLink
+          {/* <NavLink
             to={`/${post.data.id}`}
             activeclassname="active"
             elevation={6}
             style={{ textDecoration: "none" }}
+          > */}
+          <Typography
+            className="cardComments"
+            sx={{ color: "white" }}
+            elevation={10}
           >
-            <Typography
-              className="cardComments"
-              sx={{ color: "white" }}
-              elevation={10}
-            >
-              Comments: {post.data.num_comments}
-            </Typography>
-          </NavLink>
+            Comments: {post.data.num_comments}
+          </Typography>
+          {/* </NavLink> */}
         </Button>
       </CardContent>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        // maxWidth="lg"
+        fullWidth={true}
+        // sx={{ overflow: "hidden" }}
+      >
+        <Details post={post} handleClose={handleClose} />
+      </Dialog>
     </Card>
   );
 });
