@@ -15,7 +15,8 @@ export const Details = ({ post, handleClose }) => {
   const error = useSelector((state) => state.content.error);
   const theme = useTheme();
 
-  let { id } = useParams();
+  // let { id } = useParams();
+  let id = post.data.id;
 
   useEffect(() => {
     dispatch(fetchDetails(id));
@@ -35,7 +36,7 @@ export const Details = ({ post, handleClose }) => {
   // console.log("post", post);
   return (
     <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-      {/* <PostCard post={details[0].data.children[0]} /> */}
+      <PostCard post={details[0].data.children[0]} details={true} />
 
       <Box
         sx={{
@@ -48,7 +49,7 @@ export const Details = ({ post, handleClose }) => {
         <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
           Comments:
         </Typography>
-        {/* <Comments comments={details[1].data.children} isFirst /> */}
+        <Comments comments={details[1].data.children} isFirst />
       </Box>
     </Box>
   );

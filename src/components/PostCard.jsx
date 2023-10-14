@@ -19,7 +19,7 @@ import FatDivider from "./FatDivider";
 import { Details } from "../views/Details";
 
 const PostCard = forwardRef((props, ref) => {
-  const { post } = props;
+  const { post, details = false } = props;
   const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
   const islocation = useLocation();
@@ -141,27 +141,29 @@ const PostCard = forwardRef((props, ref) => {
         <Box className="cardMedia" ref={ref}>
           {mediaType(post)}
         </Box>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{ backgroundColor: primaryMediumColor, m: 1 }}
-          onClick={() => clickOpen()}
-        >
-          {/* <NavLink
+        {!details && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ backgroundColor: primaryMediumColor, m: 1 }}
+            onClick={() => clickOpen()}
+          >
+            {/* <NavLink
             to={`/${post.data.id}`}
             activeclassname="active"
             elevation={6}
             style={{ textDecoration: "none" }}
           > */}
-          <Typography
-            className="cardComments"
-            sx={{ color: "white" }}
-            elevation={10}
-          >
-            Comments: {post.data.num_comments}
-          </Typography>
-          {/* </NavLink> */}
-        </Button>
+            <Typography
+              className="cardComments"
+              sx={{ color: "white" }}
+              elevation={10}
+            >
+              Comments: {post.data.num_comments}
+            </Typography>
+            {/* </NavLink> */}
+          </Button>
+        )}
       </CardContent>
       <Dialog
         open={isOpen}
