@@ -17,8 +17,8 @@ import { NavLink, useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
 const PostCard = forwardRef((props, ref) => {
   const { post } = props;
+  const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
-  // const isMobile = useSelector((state) => state.content.viewMode);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
   const selfTextTruncate = (post) => {
@@ -62,7 +62,7 @@ const PostCard = forwardRef((props, ref) => {
       );
     } else if (post.data.thumbnail === "nsfw") {
       return (
-        <Link className="cardLink" href={post.data.url}>
+        <Link className="cardLink" href={post.data.url} color="error">
           NSFW
         </Link>
       );
@@ -92,7 +92,8 @@ const PostCard = forwardRef((props, ref) => {
               <Link
                 className="cardLink"
                 href={post.data.url}
-                sx={{ color: "teal" }}
+                target="_blank"
+                sx={{ color: theme.palette.linkText.main }}
               >
                 {post.data.thumbnail && (
                   <Typography>Click for original post</Typography>
@@ -105,7 +106,6 @@ const PostCard = forwardRef((props, ref) => {
     }
   };
 
-  const theme = useTheme();
   const primaryMediumColor = theme.palette.primary.medium;
 
   return (

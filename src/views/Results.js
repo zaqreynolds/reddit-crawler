@@ -83,7 +83,7 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-
+  console.log(posts.map((post) => post.data.id));
   return (
     <Box sx={{ m: 0, justifyContent: "center" }}>
       <Box
@@ -96,7 +96,6 @@ export const Results = () => {
           p: 0,
         }}
       >
-        {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
           <List sx={{ m: 0 }}>
             {posts.map((post, index) => (
@@ -142,30 +141,34 @@ export const Results = () => {
           </List>
         )}
 
-        {/* THIS IS FOR MASONRY */}
         {viewMode === "masonry" && (
-          <>
-            <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
-              {posts.map((post, index) => {
-                return (
-                  <PostCard
-                    post={post}
-                    key={post.data.id}
-                    sx={{ width: "100%" }}
-                    ref={index === posts.length - 1 ? lastPostRef : null}
-                  />
-                );
-              })}
-              {status === "loading" && (
+          <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
+            {posts.map((post, index) => {
+              return (
+                <PostCard
+                  post={post}
+                  key={post.data.id}
+                  sx={{ width: "100%" }}
+                  ref={index === posts.length - 1 ? lastPostRef : null}
+                />
+              );
+            })}
+            {status === "loading" && (
+              <>
                 <Box sx={{ width: "100%" }}>
                   <Loading viewMode={viewMode} />
                 </Box>
-              )}
-            </Masonry>
-          </>
+                <Box sx={{ width: "100%" }}>
+                  <Loading viewMode={viewMode} />
+                </Box>
+                <Box sx={{ width: "100%" }}>
+                  <Loading viewMode={viewMode} />
+                </Box>
+              </>
+            )}
+          </Masonry>
         )}
       </Box>
-      {/* <BottomNav /> */}
     </Box>
   );
 };

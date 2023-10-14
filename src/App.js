@@ -31,6 +31,9 @@ function App() {
         medium: Grey[600],
         lighter: Grey[300],
       },
+      linkText: {
+        main: "#54f0d3",
+      },
       mode: "dark",
     },
   });
