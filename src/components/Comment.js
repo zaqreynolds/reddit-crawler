@@ -1,4 +1,11 @@
-import { Box, Button, ListItem, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Link,
+  ListItem,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -33,8 +40,10 @@ const Comment = ({ comment, isFirst }) => {
           <b>{comment.data.author}</b>
         </Typography>
         <Box sx={{ color: theme.palette.primary.main }}>
-          {isFirst ? null : "•"}
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+          <ReactMarkdown
+            // rehypePlugins={[rehypeRaw]}
+            components={{ a: Link }}
+          >
             {formatForMarkdown(comment.data.body)}
           </ReactMarkdown>
           {hasReplies && (
@@ -46,7 +55,7 @@ const Comment = ({ comment, isFirst }) => {
             >
               <Button onClick={toggle} size="small" variant="outlined">
                 {open ? "close" : "replies"}
-              </Button>{" "}
+              </Button>
               {open ? <Box sx={{ flex: 1 }} /> : null}
             </Box>
           )}

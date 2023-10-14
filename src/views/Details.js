@@ -9,7 +9,6 @@ import { Box, Typography, useTheme } from "@mui/material";
 
 export const Details = ({ post, handleClose }) => {
   const dispatch = useDispatch();
-  const wat = useSelector((state) => state.content);
   const details = useSelector((state) => state.content.details);
   const status = useSelector((state) => state.content.detailStatus);
   const error = useSelector((state) => state.content.error);
@@ -46,7 +45,7 @@ export const Details = ({ post, handleClose }) => {
           marginTop: "1rem",
         }}
       >
-        <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
+        <Typography variant="h5" sx={{ color: theme.palette.primary.lighter }}>
           Comments:
         </Typography>
         <Comments comments={details[1].data.children} isFirst />

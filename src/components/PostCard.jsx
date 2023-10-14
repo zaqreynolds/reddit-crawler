@@ -78,7 +78,7 @@ const PostCard = forwardRef((props, ref) => {
     } else {
       return (
         <Box>
-          <ReactMarkdown>
+          <ReactMarkdown components={{ a: Link }}>
             {formatForMarkdown(selfTextTruncate(post))}
           </ReactMarkdown>
           {/* {post.data.preview &&
@@ -98,12 +98,7 @@ const PostCard = forwardRef((props, ref) => {
               placement="right"
               arrow
             >
-              <Link
-                className="cardLink"
-                href={post.data.url}
-                target="_blank"
-                sx={{ color: theme.palette.linkText.main }}
-              >
+              <Link className="cardLink" href={post.data.url} target="_blank">
                 {post.data.thumbnail && (
                   <Typography>Click for original post</Typography>
                 )}
@@ -168,9 +163,9 @@ const PostCard = forwardRef((props, ref) => {
       <Dialog
         open={isOpen}
         onClose={handleClose}
-        // maxWidth="lg"
+        maxWidth="lg"
         fullWidth={true}
-        // sx={{ overflow: "hidden" }}
+        sx={{ backgroundColor: "primary.lighter" }}
       >
         <Details post={post} handleClose={handleClose} />
       </Dialog>
