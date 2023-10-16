@@ -34,7 +34,15 @@ export const Details = ({ post, handleClose }) => {
   console.log("seed", details);
   // console.log("post", post);
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        backgroundColor: theme.palette.primary.medLight,
+        paddingTop: "1rem",
+      }}
+    >
       <PostCard post={details[0].data.children[0]} details={true} />
 
       <Box
@@ -45,7 +53,7 @@ export const Details = ({ post, handleClose }) => {
           marginTop: "1rem",
         }}
       >
-        <Typography variant="h5" sx={{ color: theme.palette.primary.lighter }}>
+        <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
           Comments:
         </Typography>
         <Comments comments={details[1].data.children} isFirst />

@@ -9,9 +9,6 @@ const Comments = ({ comments, isFirst }) => {
   return (
     <List
       sx={{
-        // paddingBottom: isFirst ? 1 : 0,
-        // paddingRight: isFirst ? 1 : 0,
-        // paddingTop: isFirst ? 1 : 0,
         padding: isFirst ? 1 : 0,
       }}
     >
@@ -23,7 +20,7 @@ const Comments = ({ comments, isFirst }) => {
                 <Paper
                   elevation={6}
                   sx={{
-                    backgroundColor: theme.palette.primary.lighter,
+                    backgroundColor: theme.palette.primary.main,
                     marginBottom: "0.5rem",
                   }}
                 >
