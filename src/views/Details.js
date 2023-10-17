@@ -13,6 +13,7 @@ export const Details = ({ post, handleClose }) => {
   const status = useSelector((state) => state.content.detailStatus);
   const error = useSelector((state) => state.content.error);
   const theme = useTheme();
+  const isMobile = useSelector((state) => state.content.isMobile);
 
   // let { id } = useParams();
   let id = post.data.id;
@@ -20,19 +21,25 @@ export const Details = ({ post, handleClose }) => {
   useEffect(() => {
     dispatch(fetchDetails(id));
   }, [dispatch, id]);
-  if (status === "loading") {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
-  }
 
   if (status === "failed") {
     return <div>{error}</div>;
   }
-  console.log("seed", details);
-  // console.log("post", post);
+  if (status === "loading") {
+    return (
+      <Box
+        className="loadTest"
+        sx={{
+          padding: isMobile ? "1rem" : "2rem 12rem 2rem 12rem",
+          backgroundColor: theme.palette.primary.medLight,
+        }}
+        elevation={0}
+      >
+        <Loading />
+      </Box>
+    );
+  }
+
   return (
     <Box
       sx={{
@@ -43,21 +50,23 @@ export const Details = ({ post, handleClose }) => {
         paddingTop: "1rem",
       }}
     >
-      <PostCard post={details[0].data.children[0]} details={true} />
+      <>
+        <PostCard post={details[0].data.children[0]} details={true} />
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          maxWidth: "95%",
-          marginTop: "1rem",
-        }}
-      >
-        <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
-          Comments:
-        </Typography>
-        <Comments comments={details[1].data.children} isFirst />
-      </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: "95%",
+            marginTop: "1rem",
+          }}
+        >
+          <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
+            Comments:
+          </Typography>
+          <Comments comments={details[1].data.children} isFirst />
+        </Box>
+      </>
     </Box>
   );
 };

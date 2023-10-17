@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
 import { Details } from "../views/Details";
 
@@ -22,6 +22,7 @@ const PostCard = forwardRef((props, ref) => {
   const { post, details = false } = props;
   const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
+  const status = useSelector((state) => state.content.detailStatus);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
 
