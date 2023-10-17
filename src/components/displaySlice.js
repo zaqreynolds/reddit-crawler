@@ -119,7 +119,6 @@ const displaySlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-
       .addCase(nextList.pending, (state) => {
         state.status = "loading";
       })
