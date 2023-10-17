@@ -70,8 +70,8 @@ const Comment = ({ comment, isFirst }) => {
       </Box>
 
       {hasReplies && comment.data.replies.kind !== "more" && open && (
-        <Box>
-          <Divider sx={{ marginBottom: 1 }} />
+        <Box sx={{ width: "100%" }}>
+          <Divider sx={{ marginBottom: 1, marginRight: 1 }} />
 
           <Comments
             comments={comment.data.replies?.data?.children}

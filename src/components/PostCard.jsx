@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   Dialog,
+  IconButton,
   Link,
   Tooltip,
   Typography,
@@ -17,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
 import { Details } from "../views/Details";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 const PostCard = forwardRef((props, ref) => {
   const { post, details = false } = props;
@@ -143,21 +145,9 @@ const PostCard = forwardRef((props, ref) => {
             size="small"
             sx={{ backgroundColor: primaryMediumColor, m: 1 }}
             onClick={() => clickOpen()}
+            startIcon={<LaunchIcon />}
           >
-            {/* <NavLink
-            to={`/${post.data.id}`}
-            activeclassname="active"
-            elevation={6}
-            style={{ textDecoration: "none" }}
-          > */}
-            <Typography
-              className="cardComments"
-              sx={{ color: "white" }}
-              elevation={10}
-            >
-              Comments: {post.data.num_comments}
-            </Typography>
-            {/* </NavLink> */}
+            Comments: {post.data.num_comments}
           </Button>
         )}
       </CardContent>
