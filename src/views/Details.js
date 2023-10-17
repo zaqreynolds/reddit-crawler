@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "../components/displaySlice";
 import PostCard from "../components/PostCard";
 import Comments from "../components/Comments";
 import Loading from "../components/Loading";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Details = ({ post, handleClose }) => {
   const dispatch = useDispatch();
@@ -47,12 +47,41 @@ export const Details = ({ post, handleClose }) => {
         justifyContent: "center",
         flexWrap: "wrap",
         backgroundColor: theme.palette.primary.medLight,
-        paddingTop: "1rem",
+        paddingTop: !isMobile ? "1rem" : 0,
       }}
     >
+      {isMobile && (
+        <Box sx={{ display: "flex", width: "100%" }}>
+          <Box sx={{ flex: 1 }} />
+          <IconButton onClick={handleClose}>
+            <CloseIcon
+              sx={{ color: theme.palette.primary.main, fontSize: 30 }}
+            />
+          </IconButton>
+        </Box>
+      )}
       <>
-        <PostCard post={details[0].data.children[0]} details={true} />
-
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+          }}
+        >
+          {!isMobile && <Box sx={{ width: "46px" }} />}
+          <PostCard post={details[0].data.children[0]} details={true} />
+          {!isMobile && (
+            <IconButton onClick={handleClose}>
+              <CloseIcon
+                sx={{
+                  color: theme.palette.primary.main,
+                  fontSize: 30,
+                  width: "30px",
+                }}
+              />
+            </IconButton>
+          )}
+        </Box>
         <Box
           sx={{
             display: "flex",

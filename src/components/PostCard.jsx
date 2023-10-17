@@ -24,7 +24,6 @@ const PostCard = forwardRef((props, ref) => {
   const { post, details = false } = props;
   const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
-  const status = useSelector((state) => state.content.detailStatus);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
 
