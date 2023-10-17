@@ -8,7 +8,6 @@ const Filter = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.content.searchString);
-  const sort = useSelector((state) => state.content.filter);
   const hideOption = () => {
     if (!state) {
       return "none";
@@ -21,7 +20,6 @@ const Filter = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
     dispatch(selectFilter(e.target.value));
-    console.log("sort", sort);
   };
 
   useEffect(() => {

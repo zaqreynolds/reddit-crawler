@@ -40,7 +40,6 @@ const PostCard = forwardRef((props, ref) => {
   };
 
   const mediaType = (post) => {
-    // console.log(post.data);
     if (post.data.post_hint === "image") {
       return (
         <img
@@ -82,17 +81,6 @@ const PostCard = forwardRef((props, ref) => {
           <ReactMarkdown components={{ a: Link }}>
             {formatForMarkdown(selfTextTruncate(post))}
           </ReactMarkdown>
-          {/* {post.data.preview &&
-            post.data.preview.images &&
-            post.data.preview.images[0].source.url && (
-              <img
-                className="cardImage2"
-                src={post.data.preview.images[0].source.url}
-                alt=""
-                style={{ maxWidth: "100%" }}
-              />
-            )} */}
-
           <Button size="small" color="inherit">
             <Tooltip
               title="click to follow external link"

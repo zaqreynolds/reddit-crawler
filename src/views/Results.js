@@ -51,7 +51,6 @@ export const Results = () => {
             status !== "loading" &&
             lastPostRef.current
           ) {
-            console.log("Last post is in view!");
             dispatch(nextList(after)); // Fetch more data when the last post is visible
             dispatch(incrementPageCount());
           }
@@ -83,7 +82,7 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-  console.log(posts.map((post) => post));
+
   return (
     <Box sx={{ m: 0, justifyContent: "center" }}>
       <Box

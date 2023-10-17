@@ -26,25 +26,6 @@ export const searchReddit = createAsyncThunk(
   }
 );
 
-// export const prevList = createAsyncThunk(
-//   "content/prevContent",
-//   async (before, thunkAPI) => {
-//     const state = thunkAPI.getState();
-//     let response;
-//     if (state.content.searchString) {
-//       response = await fetch(
-//         `https://api.reddit.com/search.json?q=${state.content.searchString}&before=${before}&count=${state.content.pageCount}`
-//       );
-//     } else {
-//       response = await fetch(
-//         `https://api.reddit.com/hot.json?before=${before}&count=${state.content.pageCount}`
-//       );
-//     }
-//     const data = await response.json();
-//     return data;
-//   }
-// );
-
 export const nextList = createAsyncThunk(
   "content/nextContent",
   async (after, thunkAPI) => {
@@ -138,17 +119,7 @@ const displaySlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      // .addCase(prevList.pending, (state) => {
-      //   state.status = "loading";
-      // })
-      // .addCase(prevList.fulfilled, (state, action) => {
-      //   state.status = "succeeded";
-      //   state.data = action.payload;
-      // })
-      // .addCase(prevList.rejected, (state, action) => {
-      //   state.status = "failed";
-      //   state.error = action.error.message;
-      // })
+
       .addCase(nextList.pending, (state) => {
         state.status = "loading";
       })
