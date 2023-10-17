@@ -24,7 +24,7 @@ const Search = () => {
     <Box>
       <TextField
         label="Search"
-        variant="standard"
+        variant="filled"
         size="small"
         value={searchQuery}
         onChange={handleSearchQueryChange}

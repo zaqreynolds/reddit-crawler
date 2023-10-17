@@ -2,11 +2,12 @@ import { useTheme } from "@emotion/react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, searchReddit } from "./displaySlice";
+import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
 
 const Filter = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.content.searchString);
+  const sort = useSelector((state) => state.content.filter);
   const hideOption = () => {
     if (!state) {
       return "none";
@@ -18,6 +19,8 @@ const Filter = () => {
   const [filter, setFilter] = useState("");
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
+    dispatch(selectFilter(e.target.value));
+    console.log("sort", sort);
   };
 
   useEffect(() => {
