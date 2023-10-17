@@ -5,8 +5,7 @@ import Header from "../components/Header";
 const todos = [
   "To Do:",
   "fix NavBar styling",
-  "make NavBar responsive",
-  "fix filter component",
+  "remove deprecated functions",
   "knownIssues: posts with markDown require more work for handling all edge cases",
 ];
 const Layout = () => {
