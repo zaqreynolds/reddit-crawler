@@ -83,7 +83,7 @@ export const Results = () => {
   if (status === "failed") {
     return <div>{error}</div>;
   }
-  console.log(posts.map((post) => post.data.id));
+  console.log(posts.map((post) => post));
   return (
     <Box sx={{ m: 0, justifyContent: "center" }}>
       <Box
