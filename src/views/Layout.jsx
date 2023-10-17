@@ -4,11 +4,8 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 const todos = [
   "To Do:",
-  "auto scoll to top on viewmode toggle and comments",
   "fix NavBar styling",
   "make NavBar responsive",
-  "fix LOADING UX",
-  "fix if comment is deleted",
   "fix filter component",
   "knownIssues: posts with markDown require more work for handling all edge cases",
 ];

@@ -47,55 +47,31 @@ export const Details = ({ post, handleClose }) => {
         justifyContent: "center",
         flexWrap: "wrap",
         backgroundColor: theme.palette.primary.medLight,
-        paddingTop: !isMobile ? "1rem" : 0,
+        paddingTop: 0,
       }}
     >
-      {isMobile && (
-        <Box sx={{ display: "flex", width: "100%" }}>
-          <Box sx={{ flex: 1 }} />
-          <IconButton onClick={handleClose}>
-            <CloseIcon
-              sx={{ color: theme.palette.primary.main, fontSize: 30 }}
-            />
-          </IconButton>
-        </Box>
-      )}
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
-          {!isMobile && <Box sx={{ width: "46px" }} />}
-          <PostCard post={details[0].data.children[0]} details={true} />
-          {!isMobile && (
-            <IconButton onClick={handleClose}>
-              <CloseIcon
-                sx={{
-                  color: theme.palette.primary.main,
-                  fontSize: 30,
-                  width: "30px",
-                }}
-              />
-            </IconButton>
-          )}
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: "95%",
-            marginTop: "1rem",
-          }}
-        >
-          <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
-            Comments:
-          </Typography>
-          <Comments comments={details[1].data.children} isFirst />
-        </Box>
-      </>
+      <Box sx={{ display: "flex", width: "100%" }}>
+        <Box sx={{ flex: 1 }} />
+        <IconButton onClick={handleClose}>
+          <CloseIcon sx={{ color: theme.palette.primary.main, fontSize: 30 }} />
+        </IconButton>
+      </Box>
+
+      <PostCard post={details[0].data.children[0]} details={true} />
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "95%",
+          marginTop: "1rem",
+        }}
+      >
+        <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
+          Comments:
+        </Typography>
+        <Comments comments={details[1].data.children} isFirst />
+      </Box>
     </Box>
   );
 };
