@@ -2,9 +2,10 @@ import { useTheme } from "@emotion/react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, searchReddit } from "./displaySlice";
+import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
 
 const Filter = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.content.searchString);
   const hideOption = () => {
@@ -18,6 +19,7 @@ const Filter = () => {
   const [filter, setFilter] = useState("");
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
+    dispatch(selectFilter(e.target.value));
   };
 
   useEffect(() => {
@@ -28,28 +30,39 @@ const Filter = () => {
     }
   }, [filter]);
 
-  const theme = useTheme();
-
   return (
     <>
       <FormControl
-        sx={{ m: 1, minWidth: 120, marginLeft: 5, marginRight: 2 }}
+        sx={{
+          m: 1,
+          minWidth: 120,
+          "& label.Mui-focused": {
+            color: theme.palette.primary.lighter,
+          },
+          "& .MuiOutlinedInput-root": {
+            "&.Mui-focused fieldset": {
+              borderColor: theme.palette.primary.lighter,
+            },
+          },
+        }}
         size="small"
       >
-        <InputLabel
-          id="filter-label"
-          sx={{ color: theme.palette.primary.lighter }}
-        >
-          Filter by...
-        </InputLabel>
+        <InputLabel id="filter-label">Sort by...</InputLabel>
         <Select
           labelId="filter-label"
-          label="Filter by..."
+          label="Sort by..."
           id="filter"
           autoWidth
           value={filter}
           size="small"
           onChange={handleFilterChange}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: theme.palette.primary.lighter,
+              },
+            },
+          }}
         >
           <MenuItem value="hot">Hot</MenuItem>
           <MenuItem value="new">New</MenuItem>

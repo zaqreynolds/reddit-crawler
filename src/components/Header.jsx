@@ -8,42 +8,23 @@ import ViewButton from "./ViewButton";
 
 const Header = () => {
   const isMobile = useSelector((state) => state.content.isMobile);
-  const islocation = useLocation();
   const theme = useTheme();
-
-  const isAtIndex = islocation.pathname === "/";
-
-  const ResponsiveTitle = () => (isMobile ? "R.C." : "Reddit Crawler");
-
-  const isHome = () => {
-    if (isAtIndex) {
-      return (
-        <Typography variant="h6" sx={{ color: theme.palette.primary.lighter }}>
-          <b>{ResponsiveTitle()}</b>
-        </Typography>
-      );
-    } else {
-      return (
-        <Link to={`/`} style={{ textDecoration: "none" }}>
-          <Typography
-            variant="h6"
-            sx={{ color: theme.palette.primary.lighter }}
-          >
-            <b>{ResponsiveTitle()}</b>
-          </Typography>
-        </Link>
-      );
-    }
-  };
 
   return (
     <AppBar position="fixed" elevation={24}>
       <Toolbar sx={{ display: "flex", alignItems: "center" }}>
-        {isHome()}
+        <Typography
+          variant="h6"
+          sx={{ color: theme.palette.primary.lighter, marginRight: 1 }}
+        >
+          <b>{isMobile ? "R.C." : "Reddit Crawler"}</b>
+        </Typography>
         <Box sx={{ flex: 1 }} />
+
         <Search />
         <Filter />
-        {!isMobile && isAtIndex && <ViewButton />}
+
+        {!isMobile && <ViewButton />}
       </Toolbar>
     </AppBar>
   );

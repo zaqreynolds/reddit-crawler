@@ -42,7 +42,7 @@ export const Results = () => {
 
   //Infinite Scrolling :)
   useEffect(() => {
-    if (status === "succeeded") {
+    if (lastPostRef.current && status === "succeeded") {
       const observer = new IntersectionObserver(
         (entries) => {
           // If the last post is visible on viewport
@@ -55,7 +55,7 @@ export const Results = () => {
             dispatch(incrementPageCount());
           }
         },
-        { threshold: 0.7 } // Observe when the this amount of the target is visible
+        { threshold: viewMode === "linear" ? 0.4 : 0.9 } // Observe when the this amount of the target is visible
       );
 
       // Unobserve current (this will unobserve the old last post if there was one)
@@ -95,7 +95,6 @@ export const Results = () => {
           p: 0,
         }}
       >
-        {/* THIS IS FOR LINEAR */}
         {viewMode === "linear" && (
           <List sx={{ m: 0 }}>
             {posts.map((post, index) => (
@@ -141,30 +140,34 @@ export const Results = () => {
           </List>
         )}
 
-        {/* THIS IS FOR MASONRY */}
-        {viewMode === "masonry" && status !== "loading" && (
-          <>
-            <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
-              {posts.map((post, index) => {
-                return (
-                  <PostCard
-                    post={post}
-                    key={post.data.id}
-                    sx={{ width: "100%" }}
-                    ref={index === posts.length - 1 ? lastPostRef : null}
-                  />
-                );
-              })}
-              {status === "loading" && (
+        {viewMode === "masonry" && (
+          <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
+            {posts.map((post, index) => {
+              return (
+                <PostCard
+                  post={post}
+                  key={post.data.id}
+                  sx={{ width: "100%" }}
+                  ref={index === posts.length - 1 ? lastPostRef : null}
+                />
+              );
+            })}
+            {status === "loading" && (
+              <>
                 <Box sx={{ width: "100%" }}>
                   <Loading viewMode={viewMode} />
                 </Box>
-              )}
-            </Masonry>
-          </>
+                <Box sx={{ width: "100%" }}>
+                  <Loading viewMode={viewMode} />
+                </Box>
+                <Box sx={{ width: "100%" }}>
+                  <Loading viewMode={viewMode} />
+                </Box>
+              </>
+            )}
+          </Masonry>
         )}
       </Box>
-      {/* <BottomNav /> */}
     </Box>
   );
 };

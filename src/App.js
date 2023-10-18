@@ -29,9 +29,19 @@ function App() {
       primary: {
         main: Grey[900],
         medium: Grey[600],
+        medLight: Grey[500],
         lighter: Grey[300],
       },
       mode: "dark",
+    },
+    components: {
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            color: "#54f0d3",
+          },
+        },
+      },
     },
   });
 

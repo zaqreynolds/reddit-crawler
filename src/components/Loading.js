@@ -27,7 +27,6 @@ const Loading = ({ viewMode }) => {
 export default Loading;
 
 const TempCard = ({ viewMode }) => {
-  console.log(viewMode);
   const viewModeToggle = viewMode === "linear" ? "60vw" : "100%";
   return (
     <Card

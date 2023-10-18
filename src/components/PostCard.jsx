@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { useTheme } from "@emotion/react";
 import ReactMarkdown from "react-markdown";
 import { formatForMarkdown } from "../utils/formatForMarkdown";
@@ -7,20 +7,30 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
   Link,
   Tooltip,
   Typography,
 } from "@mui/material";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FatDivider from "./FatDivider";
+import { Details } from "../views/Details";
+import LaunchIcon from "@mui/icons-material/Launch";
+
 const PostCard = forwardRef((props, ref) => {
-  const { post } = props;
+  const { post, details = false } = props;
+  const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
-  // const isMobile = useSelector((state) => state.content.viewMode);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const clickOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
   const selfTextTruncate = (post) => {
     if (isAtIndex && post.data.selftext.length > 1000) {
       return post.data.selftext.substring(0, 1000) + "...";
@@ -30,7 +40,6 @@ const PostCard = forwardRef((props, ref) => {
   };
 
   const mediaType = (post) => {
-    // console.log(post.data);
     if (post.data.post_hint === "image") {
       return (
         <img
@@ -62,38 +71,23 @@ const PostCard = forwardRef((props, ref) => {
       );
     } else if (post.data.thumbnail === "nsfw") {
       return (
-        <Link className="cardLink" href={post.data.url}>
+        <Link className="cardLink" href={post.data.url} color="error">
           NSFW
         </Link>
       );
     } else {
       return (
         <Box>
-          <ReactMarkdown>
+          <ReactMarkdown components={{ a: Link }}>
             {formatForMarkdown(selfTextTruncate(post))}
           </ReactMarkdown>
-          {/* {post.data.preview &&
-            post.data.preview.images &&
-            post.data.preview.images[0].source.url && (
-              <img
-                className="cardImage2"
-                src={post.data.preview.images[0].source.url}
-                alt=""
-                style={{ maxWidth: "100%" }}
-              />
-            )} */}
-
           <Button size="small" color="inherit">
             <Tooltip
               title="click to follow external link"
               placement="right"
               arrow
             >
-              <Link
-                className="cardLink"
-                href={post.data.url}
-                sx={{ color: "teal" }}
-              >
+              <Link className="cardLink" href={post.data.url} target="_blank">
                 {post.data.thumbnail && (
                   <Typography>Click for original post</Typography>
                 )}
@@ -105,7 +99,6 @@ const PostCard = forwardRef((props, ref) => {
     }
   };
 
-  const theme = useTheme();
   const primaryMediumColor = theme.palette.primary.medium;
 
   return (
@@ -132,27 +125,27 @@ const PostCard = forwardRef((props, ref) => {
         <Box className="cardMedia" ref={ref}>
           {mediaType(post)}
         </Box>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{ backgroundColor: primaryMediumColor, m: 1 }}
-        >
-          <NavLink
-            to={`/${post.data.id}`}
-            activeclassname="active"
-            elevation={6}
-            style={{ textDecoration: "none" }}
+        {!details && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ backgroundColor: primaryMediumColor, m: 1 }}
+            onClick={() => clickOpen()}
+            startIcon={<LaunchIcon />}
           >
-            <Typography
-              className="cardComments"
-              sx={{ color: "white" }}
-              elevation={10}
-            >
-              Comments: {post.data.num_comments}
-            </Typography>
-          </NavLink>
-        </Button>
+            Comments: {post.data.num_comments}
+          </Button>
+        )}
       </CardContent>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="lg"
+        fullWidth={true}
+        sx={{ backgroundColor: "primary.lighter" }}
+      >
+        <Details post={post} handleClose={handleClose} />
+      </Dialog>
     </Card>
   );
 });
