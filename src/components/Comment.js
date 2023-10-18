@@ -11,7 +11,6 @@ import React from "react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { formatForMarkdown } from "../utils/formatForMarkdown";
-import rehypeRaw from "rehype-raw";
 import Comments from "./Comments";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -44,10 +43,7 @@ const Comment = ({ comment, isFirst }) => {
         sx={{ display: "flex", width: "100%", justifyContent: "space-between" }}
       >
         <Box sx={{ color: theme.palette.primary.lighter }}>
-          <ReactMarkdown
-            // rehypePlugins={[rehypeRaw]}
-            components={{ a: Link }}
-          >
+          <ReactMarkdown components={{ a: Link }}>
             {formatForMarkdown(comment.data.body)}
           </ReactMarkdown>
         </Box>

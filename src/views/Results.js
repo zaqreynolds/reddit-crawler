@@ -7,7 +7,6 @@ import {
   setViewMode,
 } from "../components/displaySlice";
 import Loading from "../components/Loading";
-// import BottomNav from "../components/BottomNav";
 import { Box, List, ListItem } from "@mui/material";
 import PostCard from "../components/PostCard";
 import { Masonry } from "@mui/lab";

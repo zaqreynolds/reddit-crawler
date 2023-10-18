@@ -15,7 +15,6 @@ export const Details = ({ post, handleClose }) => {
   const theme = useTheme();
   const isMobile = useSelector((state) => state.content.isMobile);
 
-  // let { id } = useParams();
   let id = post.data.id;
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
 import Filter from "./Filter";
 import Search from "./Search";
 import ViewButton from "./ViewButton";
