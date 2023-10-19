@@ -66,7 +66,7 @@ const displaySlice = createSlice({
     filter: "hot",
     searchString: "",
     details: {},
-    viewMode: "masonry",
+    viewMode: "linear",
     isMobile: false,
   },
   reducers: {

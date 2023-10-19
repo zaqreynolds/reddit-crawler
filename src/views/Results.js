@@ -4,7 +4,6 @@ import {
   fetchContent,
   incrementPageCount,
   nextList,
-  setViewMode,
 } from "../components/displaySlice";
 import Loading from "../components/Loading";
 import { Box, List, ListItem } from "@mui/material";
@@ -14,7 +13,6 @@ import { Masonry } from "@mui/lab";
 export const Results = () => {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.content.viewMode);
-  const isMobile = useSelector((state) => state.content.isMobile);
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
   const after = useSelector((state) => state.content.data?.data?.after);
@@ -30,14 +28,6 @@ export const Results = () => {
   useEffect(() => {
     dispatch(fetchContent());
   }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      dispatch(setViewMode("masonry"));
-    } else {
-      dispatch(setViewMode("linear"));
-    }
-  }, [isMobile, dispatch]);
 
   //Infinite Scrolling :)
   useEffect(() => {

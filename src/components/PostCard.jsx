@@ -23,6 +23,7 @@ const PostCard = forwardRef((props, ref) => {
   const { post, details = false } = props;
   const theme = useTheme();
   const viewMode = useSelector((state) => state.content.viewMode);
+  const isMobile = useSelector((state) => state.content.isMobile);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
 
@@ -101,11 +102,18 @@ const PostCard = forwardRef((props, ref) => {
 
   const primaryMediumColor = theme.palette.primary.medium;
 
+  const cardWidth = () => {
+    if (viewMode === "linear" && !isMobile) {
+      return "60%";
+    } else if (viewMode === "linear" && isMobile) {
+      return "95%";
+    } else {
+      return undefined;
+    }
+  };
+
   return (
-    <Card
-      elevation={20}
-      sx={{ width: viewMode === "linear" ? "60%" : undefined }}
-    >
+    <Card elevation={20} sx={{ width: cardWidth() }}>
       <CardContent
         sx={{
           textAlign: "center",
