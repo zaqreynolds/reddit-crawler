@@ -6,6 +6,7 @@ import { useDebounce } from "../utils/useDebounce";
 import {
   fetchContent,
   searchReddit,
+  selectFilter,
   setSearchString,
 } from "./slices/contentSlice";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";

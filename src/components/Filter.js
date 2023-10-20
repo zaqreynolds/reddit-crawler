@@ -12,6 +12,7 @@ const Filter = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.content.searchString);
+  const data = useSelector((state) => state.content.data);
   const hideOption = () => {
     if (!state) {
       return "none";
@@ -33,6 +34,13 @@ const Filter = () => {
       dispatch(fetchContent());
     }
   }, [filter]);
+
+  useEffect(() => {
+    if (!state) {
+      setFilter("");
+      dispatch(selectFilter("hot"));
+    }
+  }, [state]);
 
   return (
     <>
