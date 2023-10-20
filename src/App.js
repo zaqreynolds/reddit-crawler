@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Grey from "@mui/material/colors/grey";
 import { useDispatch } from "react-redux";
-import { setIsMobile } from "./components/displaySlice";
+import { setIsMobile } from "./components/slices/settingsSlice";
 
 function App() {
   const dispatch = useDispatch();

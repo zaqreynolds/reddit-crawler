@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleViewMode } from "./displaySlice";
+import { toggleViewMode } from "./slices/settingsSlice";
 import SpaceDashboardTwoToneIcon from "@mui/icons-material/SpaceDashboardTwoTone";
 import HorizontalSplitTwoToneIcon from "@mui/icons-material/HorizontalSplitTwoTone";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const ViewButton = () => {
   const dispatch = useDispatch();
   const toggleView = () => dispatch(toggleViewMode());
-  const view = useSelector((state) => state.content.viewMode);
+  const view = useSelector((state) => state.settings.viewMode);
   const [toolTipTitle, setTooltipTitle] = useState();
 
   useEffect(() => {
@@ -25,8 +25,7 @@ const ViewButton = () => {
       <IconButton
         variant="outlined"
         onClick={() => toggleView()}
-        color="inherit"
-      >
+        color="inherit">
         {view === "linear" ? (
           <SpaceDashboardTwoToneIcon />
         ) : (

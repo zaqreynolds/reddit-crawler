@@ -22,7 +22,8 @@ import LaunchIcon from "@mui/icons-material/Launch";
 const PostCard = forwardRef((props, ref) => {
   const { post, details = false } = props;
   const theme = useTheme();
-  const viewMode = useSelector((state) => state.content.viewMode);
+  const viewMode = useSelector((state) => state.settings.viewMode);
+  const isMobile = useSelector((state) => state.settings.isMobile);
   const islocation = useLocation();
   const isAtIndex = islocation.pathname === "/";
 
@@ -85,8 +86,7 @@ const PostCard = forwardRef((props, ref) => {
             <Tooltip
               title="click to follow external link"
               placement="right"
-              arrow
-            >
+              arrow>
               <Link className="cardLink" href={post.data.url} target="_blank">
                 {post.data.thumbnail && (
                   <Typography>Click for original post</Typography>
@@ -101,19 +101,25 @@ const PostCard = forwardRef((props, ref) => {
 
   const primaryMediumColor = theme.palette.primary.medium;
 
+  const cardWidth = () => {
+    if (viewMode === "linear" && !isMobile) {
+      return "60%";
+    } else if (viewMode === "linear" && isMobile) {
+      return "95%";
+    } else {
+      return undefined;
+    }
+  };
+
   return (
-    <Card
-      elevation={20}
-      sx={{ width: viewMode === "linear" ? "60%" : undefined }}
-    >
+    <Card elevation={20} sx={{ width: cardWidth() }}>
       <CardContent
         sx={{
           textAlign: "center",
           "&:last-child": {
             pb: 1,
           },
-        }}
-      >
+        }}>
         <Typography className="cardTitle">
           <b>{post.data.title}</b>
         </Typography>
@@ -131,8 +137,7 @@ const PostCard = forwardRef((props, ref) => {
             size="small"
             sx={{ backgroundColor: primaryMediumColor, m: 1 }}
             onClick={() => clickOpen()}
-            startIcon={<LaunchIcon />}
-          >
+            startIcon={<LaunchIcon />}>
             Comments: {post.data.num_comments}
           </Button>
         )}
@@ -142,8 +147,7 @@ const PostCard = forwardRef((props, ref) => {
         onClose={handleClose}
         maxWidth="lg"
         fullWidth={true}
-        sx={{ backgroundColor: "primary.lighter" }}
-      >
+        sx={{ backgroundColor: "primary.lighter" }}>
         <Details post={post} handleClose={handleClose} />
       </Dialog>
     </Card>

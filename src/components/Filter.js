@@ -2,7 +2,11 @@ import { useTheme } from "@emotion/react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContent, searchReddit, selectFilter } from "./displaySlice";
+import {
+  fetchContent,
+  searchReddit,
+  selectFilter,
+} from "./slices/contentSlice";
 
 const Filter = () => {
   const theme = useTheme();
@@ -45,8 +49,7 @@ const Filter = () => {
             },
           },
         }}
-        size="small"
-      >
+        size="small">
         <InputLabel id="filter-label">Sort by...</InputLabel>
         <Select
           labelId="filter-label"
@@ -62,8 +65,7 @@ const Filter = () => {
                 borderColor: theme.palette.primary.lighter,
               },
             },
-          }}
-        >
+          }}>
           <MenuItem value="hot">Hot</MenuItem>
           <MenuItem value="new">New</MenuItem>
           <MenuItem value="top">Top</MenuItem>

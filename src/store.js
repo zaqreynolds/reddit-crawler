@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import displayReducer from "./components/displaySlice";
+import contentReducer from "./components/slices/contentSlice";
+import settingsReducer from "./components/slices/settingsSlice";
 
 export const store = configureStore({
   reducer: {
-    content: displayReducer,
+    content: contentReducer,
+    settings: settingsReducer,
   },
 });

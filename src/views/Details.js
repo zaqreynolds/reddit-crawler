@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetails } from "../components/displaySlice";
+import { fetchDetails } from "../components/slices/contentSlice";
 import PostCard from "../components/PostCard";
 import Comments from "../components/Comments";
 import Loading from "../components/Loading";
@@ -13,7 +13,7 @@ export const Details = ({ post, handleClose }) => {
   const status = useSelector((state) => state.content.detailStatus);
   const error = useSelector((state) => state.content.error);
   const theme = useTheme();
-  const isMobile = useSelector((state) => state.content.isMobile);
+  const isMobile = useSelector((state) => state.settings.isMobile);
 
   let id = post.data.id;
 
@@ -32,8 +32,7 @@ export const Details = ({ post, handleClose }) => {
           padding: isMobile ? "1rem" : "2rem 12rem 2rem 12rem",
           backgroundColor: theme.palette.primary.medLight,
         }}
-        elevation={0}
-      >
+        elevation={0}>
         <Loading />
       </Box>
     );
@@ -47,8 +46,7 @@ export const Details = ({ post, handleClose }) => {
         flexWrap: "wrap",
         backgroundColor: theme.palette.primary.medLight,
         paddingTop: 0,
-      }}
-    >
+      }}>
       <Box sx={{ display: "flex", width: "100%" }}>
         <Box sx={{ flex: 1 }} />
         <IconButton onClick={handleClose}>
@@ -64,8 +62,7 @@ export const Details = ({ post, handleClose }) => {
           flexDirection: "column",
           maxWidth: "95%",
           marginTop: "1rem",
-        }}
-      >
+        }}>
         <Typography variant="h5" sx={{ color: theme.palette.primary.main }}>
           Comments:
         </Typography>
