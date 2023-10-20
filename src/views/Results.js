@@ -4,7 +4,7 @@ import {
   fetchContent,
   incrementPageCount,
   nextList,
-} from "../components/displaySlice";
+} from "../components/slices/contentSlice";
 import Loading from "../components/Loading";
 import { Box, List, ListItem } from "@mui/material";
 import PostCard from "../components/PostCard";
@@ -12,10 +12,12 @@ import { Masonry } from "@mui/lab";
 
 export const Results = () => {
   const dispatch = useDispatch();
-  const viewMode = useSelector((state) => state.content.viewMode);
+  const viewMode = useSelector((state) => state.settings.viewMode);
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
+  const searchString = useSelector((state) => state.content.searchString);
   const after = useSelector((state) => state.content.data?.data?.after);
+  const containerRef = useRef(null);
   const lastPostRef = useRef(null);
 
   const posts = useSelector((state) => {
@@ -28,6 +30,14 @@ export const Results = () => {
   useEffect(() => {
     dispatch(fetchContent());
   }, []);
+
+  useEffect(() => {
+    if (searchString || searchString === "") {
+      if (containerRef.current) {
+        containerRef.current.scrollTop = 0;
+      }
+    }
+  }, [searchString]);
 
   //Infinite Scrolling :)
   useEffect(() => {
@@ -44,13 +54,11 @@ export const Results = () => {
             dispatch(incrementPageCount());
           }
         },
-        { threshold: viewMode === "linear" ? 0.4 : 0.9 } // Observe when the this amount of the target is visible
+        { threshold: viewMode === "linear" ? 0.4 : 0.9 }, // Observe when the this amount of the target is visible
       );
 
       // Unobserve current (this will unobserve the old last post if there was one)
-      if (lastPostRef.current) {
-        observer.unobserve(lastPostRef.current);
-      }
+      observer.unobserve(lastPostRef.current);
 
       // Then, re-observe the last post
       if (lastPostRef.current) {
@@ -73,63 +81,52 @@ export const Results = () => {
   }
 
   return (
-    <Box sx={{ m: 0, justifyContent: "center" }}>
-      <Box
-        id="results"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          p: 0,
-        }}
-      >
-        {viewMode === "linear" && (
-          <List sx={{ m: 0 }}>
-            {posts.map((post, index) => (
+    <>
+      {viewMode === "linear" && (
+        <List sx={{ overflow: "auto" }} ref={containerRef}>
+          {posts.map((post, index) => (
+            <ListItem
+              sx={{
+                justifyContent: "center",
+                px: 0,
+              }}
+              key={post.data.id}
+              ref={index === posts.length - 1 ? lastPostRef : null}>
+              <PostCard post={post} />
+            </ListItem>
+          ))}
+          {status === "loading" && (
+            <>
               <ListItem
                 sx={{
                   justifyContent: "center",
                   px: 0,
-                }}
-                key={post.data.id}
-                ref={index === posts.length - 1 ? lastPostRef : null}
-              >
-                <PostCard post={post} />
+                }}>
+                <Loading viewMode={viewMode} />
               </ListItem>
-            ))}
-            {status === "loading" && (
-              <>
-                <ListItem
-                  sx={{
-                    justifyContent: "center",
-                    px: 0,
-                  }}
-                >
-                  <Loading viewMode={viewMode} />
-                </ListItem>
-                <ListItem
-                  sx={{
-                    justifyContent: "center",
-                    px: 0,
-                  }}
-                >
-                  <Loading viewMode={viewMode} />
-                </ListItem>
-                <ListItem
-                  sx={{
-                    justifyContent: "center",
-                    px: 0,
-                  }}
-                >
-                  <Loading viewMode={viewMode} />
-                </ListItem>
-              </>
-            )}
-          </List>
-        )}
+              <ListItem
+                sx={{
+                  justifyContent: "center",
+                  px: 0,
+                }}>
+                <Loading viewMode={viewMode} />
+              </ListItem>
+              <ListItem
+                sx={{
+                  justifyContent: "center",
+                  px: 0,
+                }}>
+                <Loading viewMode={viewMode} />
+              </ListItem>
+            </>
+          )}
+        </List>
+      )}
 
-        {viewMode === "masonry" && (
+      {viewMode === "masonry" && (
+        <Box
+          sx={{ width: "100%", overflow: "auto", paddingTop: 1 }}
+          ref={containerRef}>
           <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
             {posts.map((post, index) => {
               return (
@@ -155,8 +152,8 @@ export const Results = () => {
               </>
             )}
           </Masonry>
-        )}
-      </Box>
-    </Box>
+        </Box>
+      )}
+    </>
   );
 };

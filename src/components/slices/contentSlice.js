@@ -6,11 +6,11 @@ export const fetchContent = createAsyncThunk(
     const state = thunkAPI.getState();
     thunkAPI.dispatch(resetPageCount());
     const response = await fetch(
-      `https://api.reddit.com/${state.content.filter}.json`
+      `https://api.reddit.com/${state.content.filter}.json`,
     );
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const searchReddit = createAsyncThunk(
@@ -19,11 +19,11 @@ export const searchReddit = createAsyncThunk(
     const state = thunkAPI.getState();
     thunkAPI.dispatch(resetPageCount());
     const response = await fetch(
-      `https://api.reddit.com/search.json?q=${state.content.searchString}&sort=${state.content.filter}`
+      `https://api.reddit.com/search.json?q=${state.content.searchString}&sort=${state.content.filter}`,
     );
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const nextList = createAsyncThunk(
@@ -33,16 +33,16 @@ export const nextList = createAsyncThunk(
     let response;
     if (state.content.searchString) {
       response = await fetch(
-        `https://api.reddit.com/search.json?q=${state.content.searchString}&after=${after}&count=${state.content.pageCount}`
+        `https://api.reddit.com/search.json?q=${state.content.searchString}&after=${after}&count=${state.content.pageCount}`,
       );
     } else {
       response = await fetch(
-        `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`
+        `https://api.reddit.com/hot.json?after=${after}&count=${state.content.pageCount}`,
       );
     }
     const data = await response.json();
     return data;
-  }
+  },
 );
 
 export const fetchDetails = createAsyncThunk(
@@ -52,10 +52,10 @@ export const fetchDetails = createAsyncThunk(
     response = await fetch(`https://api.reddit.com/comments/${id}.json`);
     const details = await response.json();
     return details;
-  }
+  },
 );
 
-const displaySlice = createSlice({
+const contentSlice = createSlice({
   name: "content",
   initialState: {
     data: {},
@@ -66,8 +66,6 @@ const displaySlice = createSlice({
     filter: "hot",
     searchString: "",
     details: {},
-    viewMode: "linear",
-    isMobile: false,
   },
   reducers: {
     incrementPageCount: (state) => {
@@ -84,15 +82,6 @@ const displaySlice = createSlice({
     },
     setSearchString: (state, action) => {
       state.searchString = action.payload;
-    },
-    toggleViewMode: (state) => {
-      state.viewMode = state.viewMode === "linear" ? "masonry" : "linear";
-    },
-    setViewMode: (state, action) => {
-      state.viewMode = action.payload;
-    },
-    setIsMobile: (state, action) => {
-      state.isMobile = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -145,7 +134,7 @@ const displaySlice = createSlice({
   },
 });
 
-export default displaySlice.reducer;
+export default contentSlice.reducer;
 
 export const {
   incrementPageCount,
@@ -153,7 +142,4 @@ export const {
   resetPageCount,
   selectFilter,
   setSearchString,
-  setIsMobile,
-  setViewMode,
-  toggleViewMode,
-} = displaySlice.actions;
+} = contentSlice.actions;

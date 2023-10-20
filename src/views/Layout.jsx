@@ -1,13 +1,20 @@
-import { Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 
 const Layout = () => {
   return (
-    <Box sx={{ backgroundColor: "primary.lighter", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        backgroundColor: "primary.lighter",
+        height: "100vh",
+        width: "100vw",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Header />
-      <Toolbar sx={{ mb: 2 }} />
       <Outlet />
     </Box>
   );

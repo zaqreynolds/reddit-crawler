@@ -6,16 +6,15 @@ import Search from "./Search";
 import ViewButton from "./ViewButton";
 
 const Header = () => {
-  const isMobile = useSelector((state) => state.content.isMobile);
+  const isMobile = useSelector((state) => state.settings.isMobile);
   const theme = useTheme();
 
   return (
-    <AppBar position="fixed" elevation={24}>
+    <AppBar position="static" elevation={24}>
       <Toolbar sx={{ display: "flex", alignItems: "center" }}>
         <Typography
           variant="h6"
-          sx={{ color: theme.palette.primary.lighter, marginRight: 1 }}
-        >
+          sx={{ color: theme.palette.primary.lighter, marginRight: 1 }}>
           <b>{isMobile ? "R.C." : "Reddit Crawler"}</b>
         </Typography>
         <Box sx={{ flex: 1 }} />
