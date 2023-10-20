@@ -88,6 +88,7 @@ const contentSlice = createSlice({
     builder
       .addCase(fetchContent.pending, (state) => {
         state.status = "loading";
+        state.data = {};
       })
       .addCase(fetchContent.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -99,6 +100,7 @@ const contentSlice = createSlice({
       })
       .addCase(searchReddit.pending, (state) => {
         state.status = "loading";
+        state.data = {};
       })
       .addCase(searchReddit.fulfilled, (state, action) => {
         state.status = "succeeded";

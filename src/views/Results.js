@@ -15,9 +15,7 @@ export const Results = () => {
   const viewMode = useSelector((state) => state.settings.viewMode);
   const status = useSelector((state) => state.content.status);
   const error = useSelector((state) => state.content.error);
-  const searchString = useSelector((state) => state.content.searchString);
   const after = useSelector((state) => state.content.data?.data?.after);
-  const containerRef = useRef(null);
   const lastPostRef = useRef(null);
 
   const posts = useSelector((state) => {
@@ -30,14 +28,6 @@ export const Results = () => {
   useEffect(() => {
     dispatch(fetchContent());
   }, []);
-
-  useEffect(() => {
-    if (searchString || searchString === "") {
-      if (containerRef.current) {
-        containerRef.current.scrollTop = 0;
-      }
-    }
-  }, [searchString]);
 
   //Infinite Scrolling :)
   useEffect(() => {
@@ -83,7 +73,7 @@ export const Results = () => {
   return (
     <>
       {viewMode === "linear" && (
-        <List sx={{ overflow: "auto" }} ref={containerRef}>
+        <List sx={{ overflow: "auto" }}>
           {posts.map((post, index) => (
             <ListItem
               sx={{
@@ -104,20 +94,6 @@ export const Results = () => {
                 }}>
                 <Loading viewMode={viewMode} />
               </ListItem>
-              <ListItem
-                sx={{
-                  justifyContent: "center",
-                  px: 0,
-                }}>
-                <Loading viewMode={viewMode} />
-              </ListItem>
-              <ListItem
-                sx={{
-                  justifyContent: "center",
-                  px: 0,
-                }}>
-                <Loading viewMode={viewMode} />
-              </ListItem>
             </>
           )}
         </List>
@@ -125,8 +101,12 @@ export const Results = () => {
 
       {viewMode === "masonry" && (
         <Box
-          sx={{ width: "100%", overflow: "auto", paddingTop: 1 }}
-          ref={containerRef}>
+          sx={{
+            width: "100%",
+            overflow: "auto",
+            paddingTop: 0.7,
+            paddingLeft: 1,
+          }}>
           <Masonry columns={{ xs: 1, sm: 3, md: 4, lg: 5 }}>
             {posts.map((post, index) => {
               return (
@@ -140,12 +120,6 @@ export const Results = () => {
             })}
             {status === "loading" && (
               <>
-                <Box sx={{ width: "100%" }}>
-                  <Loading viewMode={viewMode} />
-                </Box>
-                <Box sx={{ width: "100%" }}>
-                  <Loading viewMode={viewMode} />
-                </Box>
                 <Box sx={{ width: "100%" }}>
                   <Loading viewMode={viewMode} />
                 </Box>
