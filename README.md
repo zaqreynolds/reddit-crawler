@@ -1,6 +1,6 @@
 # REDDIT CRAWLER
 
-This project was created for my capstone CodeCademy Front End Developer project focusing on React and Redux.
+This project was created for my capstone CodeCademy Front End Developer project focusing on React and Redux and embellished with Material UI.
 
 ## App Features:
 
